@@ -1,11 +1,9 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { gsap, registerGSAP } from '@/lib/gsap'
+import { gsap, registerGSAP, ScrollTrigger } from '@/lib/gsap'
 import { motion } from 'framer-motion'
 import FoodIcon from '@/components/FoodIcon'
-
-registerGSAP()
 
 const items = [
   { name: 'Sizzling Brownie with Ice Cream', desc: 'Hot brownie with cold ice cream', icon: 'sizzling-brownie', hot: true, cold: true, popular: true },
@@ -20,34 +18,51 @@ export default function DessertsSection() {
   const itemsRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    registerGSAP()
+    
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     
-    if (prefersReducedMotion || !sectionRef.current) return
+    if (!sectionRef.current || !titleRef.current || !itemsRef.current) return
+
+    // Set initial visible state
+    gsap.set([titleRef.current, itemsRef.current.children], { opacity: 1, visibility: 'visible' })
+
+    if (prefersReducedMotion) return
 
     const ctx = gsap.context(() => {
-      gsap.from(titleRef.current, {
-        opacity: 0,
-        y: 30,
-        duration: 1,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: titleRef.current,
-          start: 'top 80%',
-        },
-      })
+      gsap.fromTo(titleRef.current,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: titleRef.current,
+            start: 'top 80%',
+            toggleActions: 'play none none none',
+          },
+        }
+      )
 
       // Slow reveal + glow
-      gsap.from(itemsRef.current?.children || [], {
-        opacity: 0,
-        y: 40,
-        duration: 1,
-        stagger: 0.2,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: itemsRef.current,
-          start: 'top 75%',
-        },
-      })
+      gsap.fromTo(itemsRef.current.children,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          stagger: 0.2,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: itemsRef.current,
+            start: 'top 75%',
+            toggleActions: 'play none none none',
+          },
+        }
+      )
+      
+      ScrollTrigger.refresh()
     }, sectionRef)
 
     return () => ctx.revert()

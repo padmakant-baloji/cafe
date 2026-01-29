@@ -1,11 +1,9 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { gsap, registerGSAP } from '@/lib/gsap'
+import { gsap, registerGSAP, ScrollTrigger } from '@/lib/gsap'
 import { motion } from 'framer-motion'
 import FoodIcon from '@/components/FoodIcon'
-
-registerGSAP()
 
 const items = [
   { name: 'Classic Veg Burger', desc: 'Crispy patty with fresh veggies', icon: 'burger-veg', classic: true },
@@ -19,35 +17,54 @@ export default function BurgerSection() {
   const itemsRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    registerGSAP()
+    
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const isMobile = window.innerWidth < 768
     
-    if (prefersReducedMotion || !sectionRef.current) return
+    if (!sectionRef.current || !titleRef.current || !itemsRef.current) return
+
+    // Set initial visible state
+    gsap.set([titleRef.current, itemsRef.current.children], { opacity: 1, visibility: 'visible' })
+
+    if (prefersReducedMotion) return
 
     const ctx = gsap.context(() => {
-      gsap.from(titleRef.current, {
-        opacity: 0,
-        y: isMobile ? 18 : 30,
-        duration: 0.8,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: titleRef.current,
-          start: 'top 80%',
-        },
-      })
+      gsap.fromTo(titleRef.current,
+        { opacity: 0, y: isMobile ? 18 : 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: titleRef.current,
+            start: 'top 80%',
+            toggleActions: 'play none none none',
+          },
+        }
+      )
 
       // Subtle weighty drop-in - reduce distance by 40% on mobile
-      gsap.from(itemsRef.current?.children || [], {
-        opacity: 0,
-        y: isMobile ? 48 : 80,
-        duration: 1,
-        stagger: 0.2,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: itemsRef.current,
-          start: 'top 75%',
-        },
-      })
+      if (itemsRef.current) {
+        gsap.fromTo(itemsRef.current.children,
+          { opacity: 0, y: isMobile ? 48 : 80 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            stagger: 0.2,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: itemsRef.current,
+              start: 'top 75%',
+              toggleActions: 'play none none none',
+            },
+          }
+        )
+      }
+      
+      ScrollTrigger.refresh()
     }, sectionRef)
 
     return () => ctx.revert()

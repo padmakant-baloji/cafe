@@ -1,11 +1,9 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { gsap, registerGSAP } from '@/lib/gsap'
+import { gsap, registerGSAP, ScrollTrigger } from '@/lib/gsap'
 import { motion } from 'framer-motion'
 import FoodIcon from '@/components/FoodIcon'
-
-registerGSAP()
 
 const items = [
   { name: 'Kolkata Style Veg Roll', desc: 'Spiced filling in soft roti', icon: 'kolkata-roll', spicy: true },
@@ -19,36 +17,53 @@ export default function RollsSection() {
   const itemsRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    registerGSAP()
+    
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const isMobile = window.innerWidth < 768
     
-    if (prefersReducedMotion || !sectionRef.current) return
+    if (!sectionRef.current || !titleRef.current || !itemsRef.current) return
+
+    // Set initial visible state
+    gsap.set([titleRef.current, itemsRef.current.children], { opacity: 1, visibility: 'visible' })
+
+    if (prefersReducedMotion) return
 
     const ctx = gsap.context(() => {
-      gsap.from(titleRef.current, {
-        opacity: 0,
-        y: isMobile ? 18 : 30,
-        duration: 0.8,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: titleRef.current,
-          start: 'top 80%',
-        },
-      })
+      gsap.fromTo(titleRef.current,
+        { opacity: 0, y: isMobile ? 18 : 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: titleRef.current,
+            start: 'top 80%',
+            toggleActions: 'play none none none',
+          },
+        }
+      )
 
       // Layered reveal (stacked cards effect) - reduce distance by 40% on mobile
-      gsap.from(itemsRef.current?.children || [], {
-        opacity: 0,
-        y: isMobile ? 36 : 60,
-        scale: 0.95,
-        duration: 0.8,
-        stagger: 0.2,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: itemsRef.current,
-          start: 'top 75%',
-        },
-      })
+      gsap.fromTo(itemsRef.current.children,
+        { opacity: 0, y: isMobile ? 36 : 60, scale: 0.95 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.8,
+          stagger: 0.2,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: itemsRef.current,
+            start: 'top 75%',
+            toggleActions: 'play none none none',
+          },
+        }
+      )
+      
+      ScrollTrigger.refresh()
     }, sectionRef)
 
     return () => ctx.revert()

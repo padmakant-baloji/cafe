@@ -1,11 +1,9 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { gsap, registerGSAP } from '@/lib/gsap'
+import { gsap, registerGSAP, ScrollTrigger } from '@/lib/gsap'
 import { motion } from 'framer-motion'
 import FoodIcon from '@/components/FoodIcon'
-
-registerGSAP()
 
 const items = [
   { name: 'Schezwan Fire Rice / Noodles', desc: 'Spicy and smoky', icon: 'schezwan-rice', spicy: true },
@@ -21,38 +19,55 @@ export default function RiceNoodlesSection() {
   const itemsRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    registerGSAP()
+    
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const isMobile = window.innerWidth < 768
     
-    if (prefersReducedMotion || !sectionRef.current) return
+    if (!sectionRef.current || !titleRef.current || !itemsRef.current) return
+
+    // Set initial visible state
+    gsap.set([titleRef.current, itemsRef.current.children], { opacity: 1, visibility: 'visible' })
+
+    if (prefersReducedMotion) return
 
     const ctx = gsap.context(() => {
-      gsap.from(titleRef.current, {
-        opacity: 0,
-        x: isMobile ? -30 : -50,
-        duration: 0.8,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: titleRef.current,
-          start: 'top 80%',
-        },
-      })
-
-      // Slide-in from sides (alternating) - reduce distance by 40% on mobile
-      const children = Array.from(itemsRef.current?.children || [])
-      children.forEach((child, index) => {
-        const fromX = index % 2 === 0 ? (isMobile ? -60 : -100) : (isMobile ? 60 : 100)
-        gsap.from(child, {
-          opacity: 0,
-          x: fromX,
+      gsap.fromTo(titleRef.current,
+        { opacity: 0, x: isMobile ? -30 : -50 },
+        {
+          opacity: 1,
+          x: 0,
           duration: 0.8,
           ease: 'power2.out',
           scrollTrigger: {
-            trigger: child,
-            start: 'top 85%',
+            trigger: titleRef.current,
+            start: 'top 80%',
+            toggleActions: 'play none none none',
           },
-        })
+        }
+      )
+
+      // Slide-in from sides (alternating) - reduce distance by 40% on mobile
+      const children = Array.from(itemsRef.current.children)
+      children.forEach((child, index) => {
+        const fromX = index % 2 === 0 ? (isMobile ? -60 : -100) : (isMobile ? 60 : 100)
+        gsap.fromTo(child,
+          { opacity: 0, x: fromX },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.8,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: child,
+              start: 'top 85%',
+              toggleActions: 'play none none none',
+            },
+          }
+        )
       })
+      
+      ScrollTrigger.refresh()
     }, sectionRef)
 
     return () => ctx.revert()
