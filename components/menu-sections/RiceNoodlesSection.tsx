@@ -48,24 +48,26 @@ export default function RiceNoodlesSection() {
       )
 
       // Slide-in from sides (alternating) - reduce distance by 40% on mobile
-      const children = Array.from(itemsRef.current.children)
-      children.forEach((child, index) => {
-        const fromX = index % 2 === 0 ? (isMobile ? -60 : -100) : (isMobile ? 60 : 100)
-        gsap.fromTo(child,
-          { opacity: 0, x: fromX },
-          {
-            opacity: 1,
-            x: 0,
-            duration: 0.8,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: child,
-              start: 'top 85%',
-              toggleActions: 'play none none none',
-            },
-          }
-        )
-      })
+      if (itemsRef.current) {
+        const children = Array.from(itemsRef.current.children)
+        children.forEach((child, index) => {
+          const fromX = index % 2 === 0 ? (isMobile ? -60 : -100) : (isMobile ? 60 : 100)
+          gsap.fromTo(child,
+            { opacity: 0, x: fromX },
+            {
+              opacity: 1,
+              x: 0,
+              duration: 0.8,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: child,
+                start: 'top 85%',
+                toggleActions: 'play none none none',
+              },
+            }
+          )
+        })
+      }
       
       ScrollTrigger.refresh()
     }, sectionRef)

@@ -43,22 +43,24 @@ export default function MomosSection() {
         }
       )
 
-      gsap.fromTo(itemsRef.current.children,
-        { opacity: 0, scale: 0.9, y: 30 },
-        {
-          opacity: 1,
-          scale: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.2,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: itemsRef.current,
-            start: 'top 75%',
-            toggleActions: 'play none none none',
-          },
-        }
-      )
+      if (itemsRef.current) {
+        gsap.fromTo(itemsRef.current.children,
+          { opacity: 0, scale: 0.9, y: 30 },
+          {
+            opacity: 1,
+            scale: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: itemsRef.current,
+              start: 'top 75%',
+              toggleActions: 'play none none none',
+            },
+          }
+        )
+      }
       
       ScrollTrigger.refresh()
     }, sectionRef)

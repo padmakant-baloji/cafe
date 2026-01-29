@@ -45,20 +45,22 @@ export default function BeveragesSection() {
       )
 
       // Gentle fade
-      gsap.fromTo(itemsRef.current.children,
-        { opacity: 0 },
-        {
-          opacity: 1,
-          duration: 1,
-          stagger: 0.2,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: itemsRef.current,
-            start: 'top 75%',
-            toggleActions: 'play none none none',
-          },
-        }
-      )
+      if (itemsRef.current) {
+        gsap.fromTo(itemsRef.current.children,
+          { opacity: 0 },
+          {
+            opacity: 1,
+            duration: 1,
+            stagger: 0.2,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: itemsRef.current,
+              start: 'top 75%',
+              toggleActions: 'play none none none',
+            },
+          }
+        )
+      }
       
       ScrollTrigger.refresh()
     }, sectionRef)

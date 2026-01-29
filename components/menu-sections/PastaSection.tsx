@@ -44,21 +44,23 @@ export default function PastaSection() {
       )
 
       // Gentle zoom-in
-      gsap.fromTo(itemsRef.current.children,
-        { opacity: 0, scale: 0.9 },
-        {
-          opacity: 1,
-          scale: 1,
-          duration: 1,
-          stagger: 0.3,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: itemsRef.current,
-            start: 'top 75%',
-            toggleActions: 'play none none none',
-          },
-        }
-      )
+      if (itemsRef.current) {
+        gsap.fromTo(itemsRef.current.children,
+          { opacity: 0, scale: 0.9 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 1,
+            stagger: 0.3,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: itemsRef.current,
+              start: 'top 75%',
+              toggleActions: 'play none none none',
+            },
+          }
+        )
+      }
       
       ScrollTrigger.refresh()
     }, sectionRef)
