@@ -15,17 +15,28 @@ export default function Hero() {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const isMobile = window.innerWidth < 768
     
+    // Set initial visible state for all elements
+    if (taglineRef.current) {
+      gsap.set(taglineRef.current, { opacity: 1, visibility: 'visible' })
+    }
+    if (ctaRef.current) {
+      gsap.set(ctaRef.current.children, { opacity: 1, visibility: 'visible' })
+    }
+    
     if (prefersReducedMotion) return
 
     // Animate logo fade in
     if (taglineRef.current) {
-      gsap.from(taglineRef.current, {
-        opacity: 0,
-        scale: 0.9,
-        y: isMobile ? 20 : 30,
-        duration: 1,
-        ease: 'power2.out',
-      })
+      gsap.fromTo(taglineRef.current,
+        { opacity: 0, scale: 0.9, y: isMobile ? 20 : 30 },
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          duration: 1,
+          ease: 'power2.out',
+        }
+      )
     }
 
     // Coffee steam animation - reduce distance by 40% on mobile
@@ -63,14 +74,17 @@ export default function Hero() {
 
     // CTA fade in - reduce distance by 40% on mobile
     if (ctaRef.current) {
-      gsap.from(ctaRef.current.children, {
-        opacity: 0,
-        y: isMobile ? 12 : 20,
-        duration: 1,
-        stagger: 0.2,
-        ease: 'power2.out',
-        delay: 1.5,
-      })
+      gsap.fromTo(ctaRef.current.children,
+        { opacity: 0, y: isMobile ? 12 : 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          stagger: 0.2,
+          ease: 'power2.out',
+          delay: 1.5,
+        }
+      )
     }
   }, [])
 
