@@ -48,6 +48,52 @@ npm run build
 npm start
 ```
 
+## 🚀 Deployment to GitHub Pages
+
+This project is configured for automatic deployment to GitHub Pages using GitHub Actions.
+
+### Setup Instructions:
+
+1. **Push your code to GitHub**:
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit"
+   git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+   git push -u origin main
+   ```
+
+2. **Enable GitHub Pages**:
+   - Go to your repository on GitHub
+   - Navigate to **Settings** → **Pages**
+   - Under **Source**, select **GitHub Actions**
+   - The workflow will automatically deploy on every push to `main` or `master` branch
+
+3. **Repository Name Configuration**:
+   - The workflow automatically detects your repository name and sets the base path
+   - If your repo is `username.github.io`, it will serve from root (no base path)
+   - Otherwise, it will serve from `/repo-name/`
+   - You can manually override by setting `NEXT_PUBLIC_BASE_PATH` in the workflow file
+
+4. **Manual Build** (for testing):
+   ```bash
+   # For root domain (username.github.io)
+   npm run build
+   
+   # For subdirectory (e.g., /cafe)
+   NEXT_PUBLIC_BASE_PATH=/cafe npm run build
+   ```
+
+5. **Access your site**:
+   - Root domain: `https://YOUR_USERNAME.github.io`
+   - Subdirectory: `https://YOUR_USERNAME.github.io/REPO_NAME`
+
+### Important Notes:
+- The build creates a static export in the `out` folder
+- Images are unoptimized (required for static export)
+- The `.nojekyll` file prevents Jekyll processing
+- GitHub Actions will automatically build and deploy on every push
+
 ## 🎥 Animation Rules
 
 - Smooth ease-in-out only (no bounce or elastic)
