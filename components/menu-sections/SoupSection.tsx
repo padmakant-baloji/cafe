@@ -42,6 +42,8 @@ export default function SoupSection() {
             trigger: titleRef.current,
             start: 'top 80%',
             toggleActions: 'play none none none',
+            once: true, // Only animate once to prevent re-triggering
+            markers: false,
           },
         }
       )
@@ -60,6 +62,8 @@ export default function SoupSection() {
               trigger: itemsRef.current,
               start: 'top 75%',
               toggleActions: 'play none none none',
+              once: true, // Only animate once to prevent re-triggering
+              markers: false,
             },
           }
         )
@@ -68,6 +72,12 @@ export default function SoupSection() {
 
     return () => {
       ctx.revert()
+      // Explicitly kill ScrollTriggers in this context
+      ScrollTrigger.getAll().forEach(trigger => {
+        if (sectionRef.current && sectionRef.current.contains(trigger.trigger as Node)) {
+          trigger.kill()
+        }
+      })
     }
   }, [])
 
@@ -77,6 +87,7 @@ export default function SoupSection() {
       className="py-24 px-4 md:px-8 relative overflow-hidden"
       style={{
         background: 'linear-gradient(to bottom, #FAFAFA, #F5F5F5)',
+        willChange: 'transform',
       }}
     >
       {/* Steam overlay effect */}

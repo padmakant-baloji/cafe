@@ -40,6 +40,8 @@ export default function BeveragesSection() {
             trigger: titleRef.current,
             start: 'top 80%',
             toggleActions: 'play none none none',
+            once: true,
+            markers: false,
           },
         }
       )
@@ -58,13 +60,22 @@ export default function BeveragesSection() {
               trigger: itemsRef.current,
               start: 'top 75%',
               toggleActions: 'play none none none',
+              once: true,
+              markers: false,
             },
           }
         )
       }
     }, sectionRef)
 
-    return () => ctx.revert()
+    return () => {
+      ctx.revert()
+      ScrollTrigger.getAll().forEach(trigger => {
+        if (sectionRef.current && sectionRef.current.contains(trigger.trigger as Node)) {
+          trigger.kill()
+        }
+      })
+    }
   }, [])
 
   return (
@@ -72,6 +83,7 @@ export default function BeveragesSection() {
       ref={sectionRef}
       className="py-24 px-4 md:px-8 bg-white"
       style={{
+        willChange: 'transform',
         background: 'linear-gradient(to bottom, #FAFAFA, #F5F5F5)',
       }}
     >

@@ -34,6 +34,16 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  /* Optimize scrolling performance */
+  main {
+    contain: layout style paint;
+  }
+
+  section {
+    contain: layout style;
+    transform: translateZ(0); /* Force GPU acceleration */
+  }
+
   /* Touch-friendly interactive elements */
   button,
   a,

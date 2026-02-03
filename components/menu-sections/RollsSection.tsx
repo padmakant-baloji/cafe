@@ -41,6 +41,8 @@ export default function RollsSection() {
             trigger: titleRef.current,
             start: 'top 80%',
             toggleActions: 'play none none none',
+            once: true,
+            markers: false,
           },
         }
       )
@@ -60,19 +62,29 @@ export default function RollsSection() {
               trigger: itemsRef.current,
               start: 'top 75%',
               toggleActions: 'play none none none',
+              once: true,
+              markers: false,
             },
           }
         )
       }
     }, sectionRef)
 
-    return () => ctx.revert()
+    return () => {
+      ctx.revert()
+      ScrollTrigger.getAll().forEach(trigger => {
+        if (sectionRef.current && sectionRef.current.contains(trigger.trigger as Node)) {
+          trigger.kill()
+        }
+      })
+    }
   }, [])
 
   return (
     <section
       ref={sectionRef}
       className="py-24 px-4 md:px-8 bg-neutral-cream"
+      style={{ willChange: 'transform' }}
     >
       <div className="max-w-4xl mx-auto">
         <h2
