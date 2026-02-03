@@ -7,15 +7,47 @@
     --font-serif: 'Playfair Display', Georgia, serif;
     --font-sans: 'Inter', system-ui, sans-serif;
     --font-script: 'Dancing Script', cursive;
+    --safe-area-inset-top: env(safe-area-inset-top);
+    --safe-area-inset-bottom: env(safe-area-inset-bottom);
+    --safe-area-inset-left: env(safe-area-inset-left);
+    --safe-area-inset-right: env(safe-area-inset-right);
   }
 
-
-  body {
-    @apply bg-neutral-white text-blue-dark;
+  * {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
   }
 
   html {
     @apply scroll-smooth;
+    /* Prevent font size adjustment on iOS */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-neutral-white text-blue-dark;
+    /* Prevent pull-to-refresh on mobile */
+    overscroll-behavior-y: contain;
+    /* Optimize font rendering */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Touch-friendly interactive elements */
+  button,
+  a,
+  [role="button"] {
+    @apply touch-manipulation;
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Improve scrolling on mobile */
+  @supports (-webkit-overflow-scrolling: touch) {
+    * {
+      -webkit-overflow-scrolling: touch;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -33,5 +65,35 @@
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* Mobile-first utilities */
+  .touch-manipulation {
+    touch-action: manipulation;
+  }
+
+  /* Safe area utilities */
+  .safe-top {
+    padding-top: var(--safe-area-inset-top);
+  }
+
+  .safe-bottom {
+    padding-bottom: var(--safe-area-inset-bottom);
+  }
+
+  .safe-left {
+    padding-left: var(--safe-area-inset-left);
+  }
+
+  .safe-right {
+    padding-right: var(--safe-area-inset-right);
+  }
+
+  /* Prevent text selection on mobile (for better UX) */
+  .no-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
 }

@@ -20,6 +20,7 @@ export default function PizzaSection() {
     registerGSAP()
     
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const isMobile = window.innerWidth < 768
     
     if (!sectionRef.current || !titleRef.current || !itemsRef.current) return
 
@@ -30,11 +31,11 @@ export default function PizzaSection() {
 
     const ctx = gsap.context(() => {
       gsap.fromTo(titleRef.current,
-        { opacity: 0, scale: 0.9 },
+        { opacity: 0, y: isMobile ? 18 : 30 },
         {
           opacity: 1,
-          scale: 1,
-          duration: 1,
+          y: 0,
+          duration: 0.8,
           ease: 'power2.out',
           scrollTrigger: {
             trigger: titleRef.current,
@@ -44,16 +45,16 @@ export default function PizzaSection() {
         }
       )
 
-      // Slow scale animation
+      // Items fade + slow upward motion - reduce distance by 40% on mobile
       if (itemsRef.current) {
         gsap.fromTo(itemsRef.current.children,
-          { opacity: 0, scale: 0.85 },
+          { opacity: 0, y: isMobile ? 48 : 80 },
           {
             opacity: 1,
-            scale: 1,
+            y: 0,
             duration: 1,
-            stagger: 0.15,
-            ease: 'power2.out',
+            stagger: 0.2,
+            ease: 'power3.out',
             scrollTrigger: {
               trigger: itemsRef.current,
               start: 'top 75%',
@@ -62,8 +63,6 @@ export default function PizzaSection() {
           }
         )
       }
-      
-      ScrollTrigger.refresh()
     }, sectionRef)
 
     return () => ctx.revert()
@@ -74,7 +73,7 @@ export default function PizzaSection() {
       ref={sectionRef}
       className="py-24 px-4 md:px-8 bg-white"
     >
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         <h2
           ref={titleRef}
           className="text-5xl md:text-6xl font-serif font-bold text-blue-dark mb-16 text-center"
@@ -82,45 +81,40 @@ export default function PizzaSection() {
           🍕 Pizzas
         </h2>
 
-        <div ref={itemsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div ref={itemsRef} className="space-y-6">
           {items.map((item, index) => (
             <motion.div
               key={index}
-              whileHover={{ scale: 1.1, rotate: 2, y: -10 }}
-              whileTap={{ scale: 0.95 }}
-              className="group bg-gradient-to-br from-gold/30 to-gold-light/20 rounded-2xl p-4 md:p-6 shadow-xl border-2 border-gold/40 hover:border-gold hover:shadow-2xl transition-all duration-300 cursor-pointer relative overflow-hidden flex flex-col"
+              whileHover={{ scale: 1.02, y: -5 }}
+              whileTap={{ scale: 0.98 }}
+              className="group bg-white rounded-2xl p-6 md:p-8 shadow-2xl border-4 border-blue-dark/20 hover:border-blue-dark hover:shadow-[0_25px_50px_rgba(30,58,95,0.3)] transition-all duration-300 cursor-pointer relative overflow-hidden"
+              style={{
+                boxShadow: '0 20px 40px rgba(30, 58, 95, 0.2)',
+              }}
             >
-              {/* Cheese pull effect */}
-              <div className="absolute top-0 left-0 w-full h-full opacity-0 group-hover:opacity-100 transition-opacity">
-                <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-24 h-24 bg-yellow-300/30 rounded-full blur-3xl animate-pulse" />
-              </div>
+              <div className="absolute inset-0 bg-gradient-to-b from-gold/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               
-              <div className="relative z-10 text-center flex flex-col h-full">
+              <div className="relative z-10">
                 <MenuImage
                   src={item.image}
                   alt={item.name}
                   overlayIcon="🍕"
-                  className="mb-3"
+                  className="mb-4"
                 />
-
-                <div className="mb-3 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-300">
-                  <FoodIcon type={item.icon} className="text-4xl md:text-5xl" />
+                <div className="flex items-center justify-center gap-4 mb-4">
+                  <FoodIcon type={item.icon} className="text-5xl md:text-6xl group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300" />
                 </div>
                 <div className="flex items-center justify-between gap-2 mb-2">
-                  <h3 className="text-base md:text-lg font-bold text-blue-dark group-hover:text-gold transition-colors">
+                  <h3 className="text-xl md:text-2xl font-bold text-blue-dark group-hover:text-gold transition-colors flex-1 text-left">
                     {item.name}
                   </h3>
-                  <span className="text-base md:text-lg font-bold text-gold whitespace-nowrap">
-                    {formatPrice(item.price, { first: 'Small', second: 'Medium' })}
+                  <span className="text-lg md:text-xl font-bold text-gold whitespace-nowrap text-right">
+                    {formatPrice(item.price, { first: 'S', second: 'M' })}
                   </span>
                 </div>
-                {item.desc && (
-                  <p className="text-xs md:text-sm text-blue-dark/70 mb-2 px-2">
-                    {item.desc}
-                  </p>
-                )}
+                {item.desc && <p className="text-sm md:text-base text-blue-dark/70 text-center mb-2">{item.desc}</p>}
                 {('options' in item && item.options && formatOptions(item.options).length > 0) ? (
-                  <div className="flex flex-wrap gap-1.5 mb-2 justify-center">
+                  <div className="flex flex-wrap gap-1.5 mb-3 justify-center">
                     {formatOptions(item.options).map((opt, optIdx) => (
                       <span key={optIdx} className="px-2 py-0.5 bg-blue-dark/10 text-blue-dark rounded-full text-xs font-medium">
                         {opt.name}
@@ -131,11 +125,10 @@ export default function PizzaSection() {
                     ))}
                   </div>
                 ) : null}
-                
                 {item.tags && item.tags.length > 0 && (
-                  <div className="mt-auto flex justify-center gap-2 flex-wrap">
+                  <div className="flex justify-center gap-2 flex-wrap">
                     {item.tags.map((tag: string, tagIdx: number) => (
-                      <TagBadge key={tagIdx} tag={tag} className="px-2 py-1" />
+                      <TagBadge key={tagIdx} tag={tag} className="px-3 py-1 text-sm" />
                     ))}
                   </div>
                 )}

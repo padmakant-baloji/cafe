@@ -619,21 +619,24 @@
             "name": "Veg Momos",
             "options": [
                 {
-                    "Steamed": 99
+                    "Steamed": 0
                 },
                 {
-                    "Fried": 110
+                    "Fried": 10
                 },
                 {
-                    "Schezwan": 120
+                    "Schezwan": 20
                 },
                 {
-                    "Cheesy": 130
+                    "Cheesy": 30
                 }
             ],
             "icon": "momos-veg",
             "image": "https://source.unsplash.com/featured/?momos,dumplings,vegetable",
-            "price": 120,
+            "price": {
+                "half": null,
+                "full": 99
+            },
             "tags": [
                 "popular"
             ]
@@ -642,21 +645,24 @@
             "name": "Paneer Momos",
             "options": [
                 {
-                    "Steamed": 120
+                    "Steamed": 0
                 },
                 {
-                    "Fried": 130
+                    "Fried": 10
                 },
                 {
-                    "Schezwan": 140
+                    "Schezwan": 20
                 },
                 {
-                    "Cheesy": 150
+                    "Cheesy": 30
                 }
             ],
             "icon": "momos-paneer",
             "image": "https://source.unsplash.com/featured/?momos,paneer,dumplings",
-            "price": 150,
+            "price": {
+                "half": null,
+                "full": 120
+            },
             "tags": [
                 "cheesy"
             ]

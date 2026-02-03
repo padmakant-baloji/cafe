@@ -20,6 +20,7 @@ export default function SandwichSection() {
     registerGSAP()
     
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const isMobile = window.innerWidth < 768
     
     if (!sectionRef.current || !titleRef.current || !itemsRef.current) return
 
@@ -30,7 +31,7 @@ export default function SandwichSection() {
 
     const ctx = gsap.context(() => {
       gsap.fromTo(titleRef.current,
-        { opacity: 0, y: 30 },
+        { opacity: 0, y: isMobile ? 18 : 30 },
         {
           opacity: 1,
           y: 0,
@@ -44,16 +45,16 @@ export default function SandwichSection() {
         }
       )
 
-      // Fade + slight lift
+      // Items fade + slow upward motion - reduce distance by 40% on mobile
       if (itemsRef.current) {
         gsap.fromTo(itemsRef.current.children,
-          { opacity: 0, y: 30 },
+          { opacity: 0, y: isMobile ? 48 : 80 },
           {
             opacity: 1,
             y: 0,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: 'power2.out',
+            duration: 1,
+            stagger: 0.2,
+            ease: 'power3.out',
             scrollTrigger: {
               trigger: itemsRef.current,
               start: 'top 75%',
@@ -62,8 +63,6 @@ export default function SandwichSection() {
           }
         )
       }
-      
-      ScrollTrigger.refresh()
     }, sectionRef)
 
     return () => ctx.revert()
@@ -74,7 +73,7 @@ export default function SandwichSection() {
       ref={sectionRef}
       className="py-24 px-4 md:px-8 bg-white"
     >
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         <h2
           ref={titleRef}
           className="text-5xl md:text-6xl font-serif font-bold text-blue-dark mb-16 text-center"
@@ -82,36 +81,42 @@ export default function SandwichSection() {
           🥪 Sandwiches
         </h2>
 
-        <div ref={itemsRef} className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div ref={itemsRef} className="space-y-6">
           {items.map((item, index) => (
             <motion.div
               key={index}
-              whileHover={{ scale: 1.03, y: -3 }}
+              whileHover={{ scale: 1.02, y: -5 }}
               whileTap={{ scale: 0.98 }}
-              className="group bg-neutral-light rounded-xl p-6 shadow-md border border-neutral-gray/30 hover:border-blue hover:shadow-lg transition-all duration-300 cursor-pointer flex items-center gap-4"
+              className="group bg-white rounded-2xl p-6 md:p-8 shadow-2xl border-4 border-blue-dark/20 hover:border-blue-dark hover:shadow-[0_25px_50px_rgba(30,58,95,0.3)] transition-all duration-300 cursor-pointer relative overflow-hidden"
+              style={{
+                boxShadow: '0 20px 40px rgba(30, 58, 95, 0.2)',
+              }}
             >
-              <div className="w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-b from-blue/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              
+              <div className="relative z-10">
                 <MenuImage
                   src={item.image}
                   alt={item.name}
-                  className="w-full h-full"
+                  overlayIcon="🥪"
+                  className="mb-4"
                 />
-              </div>
-              <FoodIcon type={item.icon} className="text-3xl group-hover:scale-125 transition-transform duration-300" />
-              <div className="flex-1">
-                <div className="flex items-center justify-between gap-2 mb-1">
-                  <h3 className="text-lg font-bold text-blue-dark group-hover:text-blue transition-colors">
+                <div className="flex items-center justify-center gap-4 mb-4">
+                  <FoodIcon type={item.icon} className="text-5xl md:text-6xl group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300" />
+                </div>
+                <div className="flex items-center justify-between gap-2 mb-2">
+                  <h3 className="text-xl md:text-2xl font-bold text-blue-dark group-hover:text-blue transition-colors flex-1 text-left">
                     {item.name}
                   </h3>
-                  <span className="text-base font-bold text-gold whitespace-nowrap">
+                  <span className="text-lg md:text-xl font-bold text-gold whitespace-nowrap text-right">
                     {formatPrice(item.price)}
                   </span>
                 </div>
-                {item.desc && <p className="text-sm text-blue-dark/70 mb-1">{item.desc}</p>}
+                {item.desc && <p className="text-sm md:text-base text-blue-dark/70 text-center mb-2">{item.desc}</p>}
                 {('options' in item && item.options && formatOptions(item.options).length > 0) ? (
-                  <div className="flex flex-wrap gap-1">
+                  <div className="flex flex-wrap gap-1.5 mb-3 justify-center">
                     {formatOptions(item.options).map((opt, optIdx) => (
-                      <span key={optIdx} className="px-1.5 py-0.5 bg-blue-dark/10 text-blue-dark rounded-full text-xs font-medium">
+                      <span key={optIdx} className="px-2 py-0.5 bg-blue-dark/10 text-blue-dark rounded-full text-xs font-medium">
                         {opt.name}
                         {opt.extra !== null && opt.extra !== undefined && (
                           <span className="ml-1 text-gold">+₹{opt.extra}</span>
@@ -120,14 +125,14 @@ export default function SandwichSection() {
                     ))}
                   </div>
                 ) : null}
+                {item.tags && item.tags.length > 0 && (
+                  <div className="flex justify-center gap-2 flex-wrap">
+                    {item.tags.map((tag: string, tagIdx: number) => (
+                      <TagBadge key={tagIdx} tag={tag} className="px-3 py-1 text-sm" />
+                    ))}
+                  </div>
+                )}
               </div>
-              {item.tags && item.tags.length > 0 && (
-                <div className="flex gap-1 flex-wrap">
-                  {item.tags.map((tag: string, tagIdx: number) => (
-                    <TagBadge key={tagIdx} tag={tag} className="px-2 py-0.5" />
-                  ))}
-                </div>
-              )}
             </motion.div>
           ))}
         </div>

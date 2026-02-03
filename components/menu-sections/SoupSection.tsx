@@ -64,9 +64,6 @@ export default function SoupSection() {
           }
         )
       }
-      
-      // Refresh ScrollTrigger after setup
-      ScrollTrigger.refresh()
     }, sectionRef)
 
     return () => {
@@ -88,7 +85,7 @@ export default function SoupSection() {
         <div className="absolute top-0 right-1/4 w-40 h-40 bg-white/20 rounded-full blur-3xl" />
       </div>
 
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="max-w-4xl mx-auto relative z-10">
         <h2
           ref={titleRef}
           className="text-5xl md:text-6xl font-serif font-bold text-blue-dark mb-16 text-center"
@@ -96,47 +93,43 @@ export default function SoupSection() {
           🍲 Soups
         </h2>
 
-        <div ref={itemsRef} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div ref={itemsRef} className="space-y-6">
           {items.map((item, index) => (
             <motion.div
               key={index}
-              whileHover={{ scale: 1.03, y: -5 }}
+              whileHover={{ scale: 1.02, y: -5 }}
               whileTap={{ scale: 0.98 }}
-              className="group bg-white/80 backdrop-blur-sm rounded-2xl p-4 md:p-6 shadow-lg border border-neutral-gray/20 hover:shadow-2xl hover:border-green/40 transition-all duration-300 cursor-pointer relative overflow-hidden flex flex-col"
+              className="group bg-white rounded-2xl p-6 md:p-8 shadow-2xl border-4 border-blue-dark/20 hover:border-blue-dark hover:shadow-[0_25px_50px_rgba(30,58,95,0.3)] transition-all duration-300 cursor-pointer relative overflow-hidden"
+              style={{
+                boxShadow: '0 20px 40px rgba(30, 58, 95, 0.2)',
+              }}
             >
               {/* Steam effect on hover */}
-              <div className="absolute top-0 left-0 w-full h-full opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <div className="absolute top-2 left-1/4 w-16 h-16 bg-green/20 rounded-full blur-2xl animate-pulse" />
-                <div className="absolute top-4 right-1/4 w-20 h-20 bg-green/15 rounded-full blur-3xl animate-pulse delay-150" />
-              </div>
+              <div className="absolute inset-0 bg-gradient-to-b from-green/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               
-              <div className="relative z-10 flex flex-col h-full">
+              <div className="relative z-10">
                 <MenuImage
                   src={item.image}
                   alt={item.name}
                   overlayIcon="🍲"
                   className="mb-4"
                 />
-
-                <div className="flex items-start gap-3 mb-3">
-                  <FoodIcon type={item.icon} className="text-3xl md:text-4xl group-hover:scale-125 transition-transform duration-300" />
-                  <div className="flex-1 text-left">
-                    <div className="flex items-center justify-between gap-2 mb-1">
-                      <h3 className="text-lg md:text-xl font-bold text-blue-dark group-hover:text-green transition-colors">
-                        {item.name}
-                      </h3>
-                      <span className="text-lg md:text-xl font-bold text-gold whitespace-nowrap">
-                        {formatPrice(item.price)}
-                      </span>
-                    </div>
-                    <p className="text-xs md:text-sm text-blue-dark/70">{item.desc}</p>
-                  </div>
+                <div className="flex items-center justify-center gap-4 mb-4">
+                  <FoodIcon type={item.icon} className="text-5xl md:text-6xl group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300" />
                 </div>
-                
+                <div className="flex items-center justify-between gap-2 mb-2">
+                  <h3 className="text-xl md:text-2xl font-bold text-blue-dark group-hover:text-green transition-colors flex-1 text-left">
+                    {item.name}
+                  </h3>
+                  <span className="text-lg md:text-xl font-bold text-gold whitespace-nowrap text-right">
+                    {formatPrice(item.price)}
+                  </span>
+                </div>
+                {item.desc && <p className="text-sm md:text-base text-blue-dark/70 text-center mb-2">{item.desc}</p>}
                 {('options' in item && item.options && formatOptions(item.options).length > 0) ? (
-                  <div className="flex flex-wrap gap-1.5 mb-2">
+                  <div className="flex flex-wrap gap-1.5 mb-3 justify-center">
                     {formatOptions(item.options).map((opt, optIdx) => (
-                      <span key={optIdx} className="px-2 py-1 bg-blue-dark/10 text-blue-dark rounded-full text-xs font-medium">
+                      <span key={optIdx} className="px-2 py-0.5 bg-blue-dark/10 text-blue-dark rounded-full text-xs font-medium">
                         {opt.name}
                         {opt.extra !== null && opt.extra !== undefined && (
                           <span className="ml-1 text-gold">+₹{opt.extra}</span>
@@ -145,11 +138,10 @@ export default function SoupSection() {
                     ))}
                   </div>
                 ) : null}
-                
                 {item.tags && item.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-2 mt-4">
+                  <div className="flex justify-center gap-2 flex-wrap">
                     {item.tags.map((tag: string, tagIdx: number) => (
-                      <TagBadge key={tagIdx} tag={tag} />
+                      <TagBadge key={tagIdx} tag={tag} className="px-3 py-1 text-sm" />
                     ))}
                   </div>
                 )}

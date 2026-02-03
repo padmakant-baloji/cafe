@@ -63,8 +63,6 @@ export default function BurgerSection() {
           }
         )
       }
-      
-      ScrollTrigger.refresh()
     }, sectionRef)
 
     return () => ctx.revert()
@@ -89,12 +87,11 @@ export default function BurgerSection() {
               key={index}
               whileHover={{ scale: 1.02, y: -5 }}
               whileTap={{ scale: 0.98 }}
-              className="group bg-white rounded-2xl p-8 shadow-2xl border-4 border-blue-dark/20 hover:border-blue-dark hover:shadow-[0_25px_50px_rgba(30,58,95,0.3)] transition-all duration-300 cursor-pointer relative overflow-hidden"
+              className="group bg-white rounded-2xl p-6 md:p-8 shadow-2xl border-4 border-blue-dark/20 hover:border-blue-dark hover:shadow-[0_25px_50px_rgba(30,58,95,0.3)] transition-all duration-300 cursor-pointer relative overflow-hidden"
               style={{
                 boxShadow: '0 20px 40px rgba(30, 58, 95, 0.2)',
               }}
             >
-              {/* Weighty shadow effect */}
               <div className="absolute inset-0 bg-gradient-to-b from-blue-dark/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               
               <div className="relative z-10">
@@ -105,17 +102,17 @@ export default function BurgerSection() {
                   className="mb-4"
                 />
                 <div className="flex items-center justify-center gap-4 mb-4">
-                  <FoodIcon type={item.icon} className="text-6xl group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300" />
+                  <FoodIcon type={item.icon} className="text-5xl md:text-6xl group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300" />
                 </div>
                 <div className="flex items-center justify-between gap-2 mb-2">
-                  <h3 className="text-2xl font-bold text-blue-dark group-hover:text-blue transition-colors flex-1 text-center">
+                  <h3 className="text-xl md:text-2xl font-bold text-blue-dark group-hover:text-blue transition-colors flex-1 text-left">
                     {item.name}
                   </h3>
-                  <span className="text-xl font-bold text-gold whitespace-nowrap">
+                  <span className="text-lg md:text-xl font-bold text-gold whitespace-nowrap text-right">
                     {formatPrice(item.price)}
                   </span>
                 </div>
-                {item.desc && <p className="text-base text-blue-dark/70 text-center mb-2">{item.desc}</p>}
+                {item.desc && <p className="text-sm md:text-base text-blue-dark/70 text-center mb-2">{item.desc}</p>}
                 {('options' in item && item.options && formatOptions(item.options).length > 0) ? (
                   <div className="flex flex-wrap gap-1.5 mb-3 justify-center">
                     {formatOptions(item.options).map((opt, optIdx) => (

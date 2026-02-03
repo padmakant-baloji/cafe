@@ -20,6 +20,7 @@ export default function MomosSection() {
     registerGSAP()
     
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const isMobile = window.innerWidth < 768
     
     if (!sectionRef.current || !titleRef.current || !itemsRef.current) return
 
@@ -30,7 +31,7 @@ export default function MomosSection() {
 
     const ctx = gsap.context(() => {
       gsap.fromTo(titleRef.current,
-        { opacity: 0, y: 30 },
+        { opacity: 0, y: isMobile ? 18 : 30 },
         {
           opacity: 1,
           y: 0,
@@ -44,16 +45,16 @@ export default function MomosSection() {
         }
       )
 
+      // Items fade + slow upward motion - reduce distance by 40% on mobile
       if (itemsRef.current) {
         gsap.fromTo(itemsRef.current.children,
-          { opacity: 0, scale: 0.9, y: 30 },
+          { opacity: 0, y: isMobile ? 48 : 80 },
           {
             opacity: 1,
-            scale: 1,
             y: 0,
-            duration: 0.8,
+            duration: 1,
             stagger: 0.2,
-            ease: 'power2.out',
+            ease: 'power3.out',
             scrollTrigger: {
               trigger: itemsRef.current,
               start: 'top 75%',
@@ -62,8 +63,6 @@ export default function MomosSection() {
           }
         )
       }
-      
-      ScrollTrigger.refresh()
     }, sectionRef)
 
     return () => ctx.revert()
@@ -82,41 +81,41 @@ export default function MomosSection() {
           🥟 Momos
         </h2>
 
-        <div ref={itemsRef} className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div ref={itemsRef} className="space-y-6">
           {items.map((item, index) => (
             <motion.div
               key={index}
-              whileHover={{ scale: 1.08, y: -10 }}
-              whileTap={{ scale: 0.95 }}
-              className="group bg-white rounded-3xl p-8 shadow-lg border-2 border-green/30 hover:border-green hover:shadow-2xl transition-all duration-300 cursor-pointer relative overflow-hidden"
+              whileHover={{ scale: 1.02, y: -5 }}
+              whileTap={{ scale: 0.98 }}
+              className="group bg-white rounded-2xl p-6 md:p-8 shadow-2xl border-4 border-blue-dark/20 hover:border-blue-dark hover:shadow-[0_25px_50px_rgba(30,58,95,0.3)] transition-all duration-300 cursor-pointer relative overflow-hidden"
+              style={{
+                boxShadow: '0 20px 40px rgba(30, 58, 95, 0.2)',
+              }}
             >
-              {/* Steam effect on hover */}
-              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-32 bg-green/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse" />
-              <div className="absolute top-4 left-1/3 w-24 h-24 bg-green/15 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100" />
-              <div className="absolute top-6 right-1/3 w-20 h-20 bg-green/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-200" />
+              <div className="absolute inset-0 bg-gradient-to-b from-green/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               
-              <div className="relative z-10 text-center">
+              <div className="relative z-10">
                 <MenuImage
                   src={item.image}
                   alt={item.name}
                   overlayIcon="🥟"
                   className="mb-4"
                 />
-                <div className="mb-4 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-300">
-                  <FoodIcon type={item.icon} className="text-6xl" />
+                <div className="flex items-center justify-center gap-4 mb-4">
+                  <FoodIcon type={item.icon} className="text-5xl md:text-6xl group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300" />
                 </div>
-                <div className="flex items-center justify-between gap-2 mb-4">
-                  <h3 className="text-2xl font-bold text-blue-dark group-hover:text-green transition-colors flex-1">
+                <div className="flex items-center justify-between gap-2 mb-2">
+                  <h3 className="text-xl md:text-2xl font-bold text-blue-dark group-hover:text-green transition-colors flex-1 text-left">
                     {item.name}
                   </h3>
-                  <span className="text-xl font-bold text-gold whitespace-nowrap">
+                  <span className="text-lg md:text-xl font-bold text-gold whitespace-nowrap text-right">
                     {formatPrice(item.price)}
                   </span>
                 </div>
                 {('options' in item && item.options && formatOptions(item.options).length > 0) ? (
-                  <div className="flex flex-wrap justify-center gap-2">
+                  <div className="flex flex-wrap gap-1.5 mb-3 justify-center">
                     {formatOptions(item.options).map((opt, i) => (
-                      <span key={i} className="px-3 py-1.5 bg-green/10 hover:bg-green/20 text-green-700 rounded-full text-sm font-semibold transition-colors">
+                      <span key={i} className="px-2 py-0.5 bg-blue-dark/10 text-blue-dark rounded-full text-xs font-medium">
                         {opt.name}
                         {opt.extra !== null && opt.extra !== undefined && (
                           <span className="ml-1 text-gold">+₹{opt.extra}</span>
@@ -126,9 +125,9 @@ export default function MomosSection() {
                   </div>
                 ) : null}
                 {item.tags && item.tags.length > 0 && (
-                  <div className="mt-4 flex justify-center gap-2 flex-wrap">
+                  <div className="flex justify-center gap-2 flex-wrap">
                     {item.tags.map((tag: string, tagIdx: number) => (
-                      <TagBadge key={tagIdx} tag={tag} className="px-3 py-1" />
+                      <TagBadge key={tagIdx} tag={tag} className="px-3 py-1 text-sm" />
                     ))}
                   </div>
                 )}

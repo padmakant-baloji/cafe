@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import Logo from '@/components/Logo'
 
 export default function Hero() {
+  const sectionRef = useRef<HTMLElement>(null)
   const taglineRef = useRef<HTMLDivElement>(null)
   const steamRef = useRef<HTMLDivElement>(null)
   const iconsRef = useRef<HTMLDivElement>(null)
@@ -39,73 +40,86 @@ export default function Hero() {
     
     if (prefersReducedMotion) return
 
-    // Animate logo fade in
-    if (taglineRef.current) {
-      gsap.fromTo(taglineRef.current,
-        { opacity: 0, scale: 0.9, y: isMobile ? 20 : 30 },
-        {
-          opacity: 1,
-          scale: 1,
-          y: 0,
-          duration: 1,
-          ease: 'power2.out',
-        }
-      )
-    }
+    // Use GSAP context for proper cleanup with scope element
+    const ctx = gsap.context(() => {
+      // Animate logo fade in
+      if (taglineRef.current) {
+        gsap.fromTo(taglineRef.current,
+          { opacity: 0, scale: 0.9, y: isMobile ? 20 : 30 },
+          {
+            opacity: 1,
+            scale: 1,
+            y: 0,
+            duration: 1,
+            ease: 'power2.out',
+          }
+        )
+      }
 
-    // Coffee steam animation - reduce distance by 40% on mobile
-    if (steamRef.current) {
-      const steamElements = steamRef.current.querySelectorAll('.steam')
-      const steamDistance = isMobile ? -60 : -100
-      steamElements.forEach((steam, index) => {
-        gsap.to(steam, {
-          y: steamDistance,
-          opacity: 0,
-          duration: 2 + index * 0.3,
-          repeat: -1,
-          ease: 'power1.out',
-          delay: index * 0.5,
-        })
-      })
-    }
+      // Coffee steam animation - reduce distance by 40% on mobile
+      // Disabled infinite animations to prevent memory issues
+      // if (steamRef.current) {
+      //   const steamElements = steamRef.current.querySelectorAll('.steam')
+      //   const steamDistance = isMobile ? -60 : -100
+      //   steamElements.forEach((steam, index) => {
+      //     gsap.to(steam, {
+      //       y: steamDistance,
+      //       opacity: 0,
+      //       duration: 2 + index * 0.3,
+      //       repeat: -1,
+      //       ease: 'power1.out',
+      //       delay: index * 0.5,
+      //     })
+      //   })
+      // }
 
-    // Floating icons animation - reduce distance by 40% on mobile
-    if (iconsRef.current) {
-      const icons = iconsRef.current.querySelectorAll('.floating-icon')
-      const floatDistance = isMobile ? -18 : -30
-      icons.forEach((icon, index) => {
-        gsap.to(icon, {
-          y: floatDistance,
-          rotation: isMobile ? 3 : 5,
-          duration: 2 + index * 0.2,
-          repeat: -1,
-          yoyo: true,
-          ease: 'power1.inOut',
-          delay: index * 0.3,
-        })
-      })
-    }
+      // Floating icons animation - reduce distance by 40% on mobile
+      // Disabled infinite animations to prevent memory issues
+      // if (iconsRef.current) {
+      //   const icons = iconsRef.current.querySelectorAll('.floating-icon')
+      //   const floatDistance = isMobile ? -18 : -30
+      //   icons.forEach((icon, index) => {
+      //     gsap.to(icon, {
+      //       y: floatDistance,
+      //       rotation: isMobile ? 3 : 5,
+      //       duration: 2 + index * 0.2,
+      //       repeat: -1,
+      //       yoyo: true,
+      //       ease: 'power1.inOut',
+      //       delay: index * 0.3,
+      //     })
+      //   })
+      // }
 
-    // CTA fade in - reduce distance by 40% on mobile
-    if (ctaRef.current) {
-      gsap.fromTo(ctaRef.current.children,
-        { opacity: 0, y: isMobile ? 12 : 20 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          stagger: 0.2,
-          ease: 'power2.out',
-          delay: 1.5,
-        }
-      )
+      // CTA fade in - reduce distance by 40% on mobile
+      if (ctaRef.current) {
+        gsap.fromTo(ctaRef.current.children,
+          { opacity: 0, y: isMobile ? 12 : 20 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            stagger: 0.2,
+            ease: 'power2.out',
+            delay: 1.5,
+          }
+        )
+      }
+    }, sectionRef)
+
+    // Cleanup function to kill all animations
+    return () => {
+      ctx.revert()
     }
   }, [])
 
   const foodIcons = ['🍲', '🍕', '🍔', '🥟', '☕']
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-neutral-white via-neutral-cream to-neutral-light">
+    <section 
+      ref={sectionRef}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-neutral-white via-neutral-cream to-neutral-light"
+    >
       {/* Background floating icons */}
       <div ref={iconsRef} className="absolute inset-0 pointer-events-none">
         {foodIcons.map((icon, index) => (
@@ -137,25 +151,27 @@ export default function Hero() {
       </div>
 
       {/* Main content */}
-      <div className="relative z-10 text-center px-4">
+      <div className="relative z-10 text-center px-4 w-full">
         {/* Logo */}
         <div ref={taglineRef} className="mb-8">
           <Logo showText={true} />
         </div>
 
-        <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full max-w-md mx-auto px-4">
           <motion.button
             whileHover={{ scale: 1.05, boxShadow: '0 10px 30px rgba(30, 58, 95, 0.3)' }}
             whileTap={{ scale: 0.98 }}
             onClick={handleExploreClick}
-            className="px-8 py-4 bg-blue-dark text-neutral-white rounded-full font-semibold text-lg shadow-lg transition-all duration-300"
+            className="w-full sm:w-auto min-h-[44px] px-6 sm:px-8 py-3 sm:py-4 bg-blue-dark text-neutral-white rounded-full font-semibold text-base sm:text-lg shadow-lg transition-all duration-300 touch-manipulation"
+            aria-label="Explore our menu"
           >
             Explore Menu
           </motion.button>
           <motion.button
             whileHover={{ scale: 1.05, boxShadow: '0 10px 30px rgba(251, 191, 36, 0.3)' }}
             whileTap={{ scale: 0.98 }}
-            className="px-8 py-4 bg-gold text-blue-dark rounded-full font-semibold text-lg shadow-lg transition-all duration-300"
+            className="w-full sm:w-auto min-h-[44px] px-6 sm:px-8 py-3 sm:py-4 bg-gold text-blue-dark rounded-full font-semibold text-base sm:text-lg shadow-lg transition-all duration-300 touch-manipulation"
+            aria-label="Order now"
           >
             Order Now
           </motion.button>

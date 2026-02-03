@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false, // Disabled to prevent double renders that could cause crashes
   output: 'export',
   images: {
     unoptimized: true, // Required for static export

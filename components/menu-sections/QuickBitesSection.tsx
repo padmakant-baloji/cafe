@@ -63,8 +63,6 @@ export default function QuickBitesSection() {
           }
         )
       }
-      
-      ScrollTrigger.refresh()
     }, sectionRef)
 
     return () => ctx.revert()
@@ -75,7 +73,7 @@ export default function QuickBitesSection() {
       ref={sectionRef}
       className="py-24 px-4 md:px-8 bg-white"
     >
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         <h2
           ref={titleRef}
           className="text-5xl md:text-6xl font-serif font-bold text-blue-dark mb-16 text-center"
@@ -83,53 +81,49 @@ export default function QuickBitesSection() {
           🍟 Quick Bites
         </h2>
 
-        <div ref={itemsRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div ref={itemsRef} className="space-y-6">
           {items.map((item, index) => (
             <motion.div
               key={index}
-              whileHover={{ scale: 1.08, rotate: 1, y: -8 }}
-              whileTap={{ scale: 0.95 }}
-              className="group bg-gradient-to-br from-gold/20 to-gold-light/10 rounded-2xl p-4 md:p-5 shadow-lg border-2 border-gold/30 hover:border-gold hover:shadow-2xl transition-all duration-300 cursor-pointer relative overflow-hidden flex flex-col"
+              whileHover={{ scale: 1.02, y: -5 }}
+              whileTap={{ scale: 0.98 }}
+              className="group bg-white rounded-2xl p-6 md:p-8 shadow-2xl border-4 border-blue-dark/20 hover:border-blue-dark hover:shadow-[0_25px_50px_rgba(30,58,95,0.3)] transition-all duration-300 cursor-pointer relative overflow-hidden"
+              style={{
+                boxShadow: '0 20px 40px rgba(30, 58, 95, 0.2)',
+              }}
             >
-              {/* Shine effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+              <div className="absolute inset-0 bg-gradient-to-b from-gold/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               
-              <div className="relative z-10 flex flex-col h-full">
+              <div className="relative z-10">
                 <MenuImage
                   src={item.image}
                   alt={item.name}
                   overlayIcon="🍟"
-                  className="mb-3"
+                  className="mb-4"
                 />
-
-                <div className="flex items-center gap-3 mb-2">
-                  <FoodIcon type={item.icon} className="text-2xl md:text-3xl group-hover:scale-125 transition-transform duration-300" />
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between gap-2">
-                      <h3 className="text-sm md:text-base font-bold text-blue-dark group-hover:text-gold transition-colors">
-                        {item.name}
-                      </h3>
-                      {item.tags && item.tags.includes('popular') && (
-                        <span className="px-2 py-0.5 bg-red-500 text-white rounded-full text-xs font-bold animate-pulse">
-                          HOT
-                        </span>
-                      )}
-                    </div>
-                    <div className="flex items-center justify-between mt-1">
-                      {item.desc && (
-                        <p className="text-xs text-blue-dark/70">{item.desc}</p>
-                      )}
-                      <span className="text-sm md:text-base font-bold text-gold whitespace-nowrap ml-2">
-                        {formatPrice(item.price)}
-                      </span>
-                    </div>
-                  </div>
+                <div className="flex items-center justify-center gap-4 mb-4">
+                  <FoodIcon type={item.icon} className="text-5xl md:text-6xl group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300" />
                 </div>
-                
-                {'options' in item && item.options && formatOptions(item.options as any).length > 0 && (
-                  <div className="flex flex-wrap gap-1.5 mt-2">
+                <div className="flex items-center justify-between gap-2 mb-2">
+                  <h3 className="text-xl md:text-2xl font-bold text-blue-dark group-hover:text-gold transition-colors flex-1 text-left">
+                    {item.name}
+                  </h3>
+                  <span className="text-lg md:text-xl font-bold text-gold whitespace-nowrap text-right">
+                    {formatPrice(item.price)}
+                  </span>
+                </div>
+                {item.desc && <p className="text-sm md:text-base text-blue-dark/70 text-center mb-2">{item.desc}</p>}
+                {item.tags && item.tags.includes('popular') && (
+                  <div className="flex justify-center mb-2">
+                    <span className="px-3 py-1 bg-red-500 text-white rounded-full text-xs font-bold animate-pulse">
+                      🔥 HOT
+                    </span>
+                  </div>
+                )}
+                {('options' in item && item.options && formatOptions(item.options as any).length > 0) ? (
+                  <div className="flex flex-wrap gap-1.5 mb-3 justify-center">
                     {formatOptions(item.options as any).map((opt, i) => (
-                      <span key={i} className="px-2 py-0.5 bg-white/60 rounded-full text-xs text-blue-dark font-medium">
+                      <span key={i} className="px-2 py-0.5 bg-blue-dark/10 text-blue-dark rounded-full text-xs font-medium">
                         {opt.name}
                         {opt.extra !== null && opt.extra !== undefined && (
                           <span className="ml-1 text-gold">+₹{opt.extra}</span>
@@ -137,15 +131,13 @@ export default function QuickBitesSection() {
                       </span>
                     ))}
                   </div>
-                )}
-                
-                {/* Tags */}
+                ) : null}
                 {item.tags && item.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-1.5 mt-2">
+                  <div className="flex justify-center gap-2 flex-wrap">
                     {item.tags
-                      .filter((tag: string) => tag !== 'popular') // popular is shown as HOT badge above
+                      .filter((tag: string) => tag !== 'popular')
                       .map((tag: string, tagIdx: number) => (
-                        <TagBadge key={tagIdx} tag={tag} className="px-2 py-0.5" />
+                        <TagBadge key={tagIdx} tag={tag} className="px-3 py-1 text-sm" />
                       ))}
                   </div>
                 )}
