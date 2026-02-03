@@ -11,6 +11,20 @@ export default function Hero() {
   const iconsRef = useRef<HTMLDivElement>(null)
   const ctaRef = useRef<HTMLDivElement>(null)
 
+  const handleExploreClick = () => {
+    if (typeof document === 'undefined') return
+
+    const menuSection = document.getElementById('menu')
+    if (!menuSection) return
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    menuSection.scrollIntoView({
+      behavior: prefersReducedMotion ? 'auto' : 'smooth',
+      block: 'start',
+    })
+  }
+
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const isMobile = window.innerWidth < 768
@@ -133,6 +147,7 @@ export default function Hero() {
           <motion.button
             whileHover={{ scale: 1.05, boxShadow: '0 10px 30px rgba(30, 58, 95, 0.3)' }}
             whileTap={{ scale: 0.98 }}
+            onClick={handleExploreClick}
             className="px-8 py-4 bg-blue-dark text-neutral-white rounded-full font-semibold text-lg shadow-lg transition-all duration-300"
           >
             Explore Menu
