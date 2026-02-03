@@ -17,7 +17,7 @@
             "name": "Garden Fresh Tomato Soup",
             "desc": "Slow-cooked tomatoes with herbs",
             "icon": "soup-tomato",
-            "image": "https://source.unsplash.com/featured/?tomato-soup,herbs",
+            "image": "/menu/tomato-soup.jpg",
             "price": {
                 "half": 60,
                 "full": 110
@@ -30,7 +30,7 @@
             "name": "Creamy Mushroom Delight",
             "desc": "Rich and creamy mushroom soup",
             "icon": "soup-mushroom",
-            "image": "https://source.unsplash.com/featured/?mushroom-soup,cream",
+            "image": "/menu/mushroom-soup.jpg",
             "price": {
                 "half": 70,
                 "full": 110
@@ -43,7 +43,7 @@
             "name": "Roasted Garlic Soup",
             "desc": "Aromatic garlic broth",
             "icon": "soup-garlic",
-            "image": "https://source.unsplash.com/featured/?garlic-soup,broth",
+            "image": "/menu/garlic-soup.jpg",
             "price": {
                 "half": 60,
                 "full": 99
@@ -58,7 +58,7 @@
             "name": "Gobi 65",
             "desc": "Spicy crispy gobi with bold flavors",
             "icon": "gobi-manchurian",
-            "image": "https://source.unsplash.com/featured/?gobi,cauliflower,fried",
+            "image": "/menu/gobi-65.webp",
             "price": {
                 "half": 70,
                 "full": 120
@@ -72,7 +72,7 @@
             "name": "Gobi Chilly",
             "desc": "Tangy and spicy gobi in chilli sauce",
             "icon": "gobi-manchurian",
-            "image": "https://source.unsplash.com/featured/?gobi,chilli,indo-chinese",
+            "image": "/menu/gobi-chilly.jpg",
             "price": {
                 "half": 60,
                 "full": 110
@@ -85,7 +85,7 @@
             "name": "Gobi Manchurian",
             "desc": "Classic Indo-Chinese gobi",
             "icon": "gobi-manchurian",
-            "image": "https://source.unsplash.com/featured/?gobi,manchurian",
+            "image": "/menu/gobi-manchurian.jpg",
             "price": {
                 "half": 60,
                 "full": 110
@@ -98,7 +98,7 @@
             "name": "Gobi Salt & Pepper",
             "desc": "Crispy gobi with salt and pepper",
             "icon": "gobi-manchurian",
-            "image": "https://source.unsplash.com/featured/?cauliflower,fried,snack",
+            "image": "/menu/gobi-pepper.webp",
             "price": {
                 "half": 60,
                 "full": 110
@@ -111,7 +111,7 @@
             "name": "Paneer 65",
             "desc": "Spicy crispy paneer with bold flavors",
             "icon": "paneer-bites",
-            "image": "https://source.unsplash.com/featured/?paneer,fried,indian",
+            "image": "/menu/paneer-65.jpeg",
             "price": {
                 "half": 100,
                 "full": 190
@@ -125,7 +125,7 @@
             "name": "Paneer Chilly",
             "desc": "Tangy and spicy paneer in chilli sauce",
             "icon": "paneer-bites",
-            "image": "https://source.unsplash.com/featured/?paneer,chilli,indo-chinese",
+            "image": "/menu/paneer-chilly.webp",
             "price": {
                 "half": 99,
                 "full": 190
@@ -138,7 +138,7 @@
             "name": "Paneer Manchurian",
             "desc": "Classic Indo-Chinese paneer",
             "icon": "paneer-bites",
-            "image": "https://source.unsplash.com/featured/?paneer,manchurian",
+            "image": "/menu/paneer-munchurian.jpeg",
             "price": {
                 "half": 99,
                 "full": 190
@@ -151,7 +151,7 @@
             "name": "Paneer Salt & Pepper",
             "desc": "Crispy paneer with salt and pepper",
             "icon": "paneer-bites",
-            "image": "https://source.unsplash.com/featured/?paneer,fried,snack",
+            "image": "/menu/Paneer-Pepper%20.jpg",
             "price": {
                 "half": 99,
                 "full": 190
@@ -164,7 +164,7 @@
             "name": "Veggie Manchurian Pops",
             "desc": "Indo-Chinese favorite",
             "icon": "manchurian-pops",
-            "image": "https://source.unsplash.com/featured/?vegetable,manchurian,balls",
+            "image": "/menu/veggie-manchurian.png",
             "price": {
                 "half": 50,
                 "full": 90
@@ -177,7 +177,7 @@
             "name": "Corn Crunch Basket",
             "desc": "Fried golden corn",
             "icon": "corn-crunch",
-            "image": "https://source.unsplash.com/featured/?corn,kernels,fried",
+            "image": "/menu/corn-crunch.jpg",
             "price": {
                 "half": null,
                 "full": 120
@@ -190,7 +190,7 @@
             "name": "American Butter Corn",
             "desc": "Butter tossed sweet corn",
             "icon": "butter-corn",
-            "image": "https://source.unsplash.com/featured/?corn,butter,snack",
+            "image": "/menu/american-butter-corn.jpg",
             "price": {
                 "half": null,
                 "full": 99
@@ -216,7 +216,7 @@
             "name": "French Fries",
             "desc": "French fries three ways",
             "icon": "fries",
-            "image": "https://source.unsplash.com/featured/?french-fries,potato",
+            "image": "/menu/french-fries.jpg",
             "price": {
                 "half": null,
                 "full": 99
@@ -240,7 +240,7 @@
             "name": "Spiced Potato Wedges",
             "desc": "Crispy seasoned wedges",
             "icon": "potato-wedges",
-            "image": "https://source.unsplash.com/featured/?potato,wedges,snack",
+            "image": "/menu/potato-wedges.webp",
             "price": {
                 "half": null,
                 "full": 130
@@ -253,7 +253,7 @@
             "name": "Smiley Fries",
             "desc": "Fun crispy potato snacks",
             "icon": "smiley-fries",
-            "image": "https://source.unsplash.com/featured/?potato,smiley,fries",
+            "image": "/menu/smiley-fries.jpg",
             "price": 110,
             "options": [
                 {
@@ -274,7 +274,7 @@
             "name": "Veg Nuggets",
             "desc": "Golden fried veggie nuggets",
             "icon": "nuggets",
-            "image": "https://source.unsplash.com/featured/?vegetarian,nuggets",
+            "image": "/menu/veg-nuggets.avif",
             "price": {
                 "half": null,
                 "full": 120
@@ -289,7 +289,7 @@
             "name": "Schezwan Fire Rice / Noodles",
             "desc": "Spicy and smoky",
             "icon": "schezwan-rice",
-            "image": "https://source.unsplash.com/featured/?schezwan,rice,spicy",
+            "image": "/menu/Schezwan-FriedRice.webp",
             "price": {
                 "half": 80,
                 "full": 150
@@ -302,7 +302,7 @@
             "name": "Chilli Garlic Rice / Noodles",
             "desc": "Garlic-forward street style",
             "icon": "chilli-garlic-rice",
-            "image": "https://source.unsplash.com/featured/?chilli,garlic,rice",
+            "image": "/menu/chilli-garlic-rice.webp",
             "price": {
                 "half": 80,
                 "full": 150
@@ -315,7 +315,7 @@
             "name": "Classic Veg Fried Rice / Noodles",
             "desc": "Light and comforting",
             "icon": "fried-rice",
-            "image": "https://source.unsplash.com/featured/?fried-rice,vegetable",
+            "image": "/menu/Fried-Rice.webp",
             "price": {
                 "half": 70,
                 "full": 130
@@ -709,7 +709,7 @@
             "name": "Sizzling Brownie with Ice Cream",
             "desc": "Hot brownie with cold ice cream",
             "icon": "sizzling-brownie",
-            "image": "https://source.unsplash.com/featured/?brownie,ice-cream,hot",
+            "image": "/menu/sizzling-brownie.jpg",
             "price": {
                 "half": null,
                 "full": 120
