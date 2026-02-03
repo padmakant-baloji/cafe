@@ -549,21 +549,34 @@
             "desc": "Freshly brewed",
             "icon": "coffee-hot",
             "image": "https://source.unsplash.com/featured/?hot,coffee,brew",
-            "price": 80
+            "price": {
+                "half": 20,
+                "full": 30
+            }
         },
         {
             "name": "Cold Coffee",
             "desc": "Chilled and creamy",
             "icon": "coffee-cold",
             "image": "https://source.unsplash.com/featured/?cold,coffee,iced",
-            "price": 90
+            "price": {
+                "half": null,
+                "full": 70
+            }
         },
         {
             "name": "Masala Chai",
             "desc": "Traditional Indian tea",
             "icon": "chai",
             "image": "https://source.unsplash.com/featured/?masala,chai,tea",
-            "price": 60
+            "price": 20
+        },
+        {
+            "name": "Masala Coldrinks",
+            "desc": "Traditional Indian coldrinks",
+            "icon": "coldrinks",
+            "image": "https://source.unsplash.com/featured/?masala,coldrinks,tea",
+            "price": 50
         }
     ],
     "desserts": [
@@ -572,7 +585,10 @@
             "desc": "Hot brownie with cold ice cream",
             "icon": "sizzling-brownie",
             "image": "https://source.unsplash.com/featured/?brownie,ice-cream,hot",
-            "price": 180,
+            "price": {
+                "half": null,
+                "full": 120
+            },
             "hot": true,
             "cold": true,
             "popular": true
@@ -582,7 +598,10 @@
             "desc": "Rich Indian dessert",
             "icon": "shahi-tukda",
             "image": "https://source.unsplash.com/featured/?shahi,tukda,indian-dessert",
-            "price": 150,
+            "price": {
+                "half": null,
+                "full": 120
+            },
             "royal": true,
             "rich": true
         },

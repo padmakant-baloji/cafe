@@ -112,7 +112,7 @@ export default function MomosSection() {
                     {formatPrice(item.price)}
                   </span>
                 </div>
-                {'options' in item && item.options && formatOptions(item.options).length > 0 && (
+                {('options' in item && item.options && formatOptions(item.options).length > 0) ? (
                   <div className="flex flex-wrap justify-center gap-2">
                     {formatOptions(item.options).map((opt, i) => (
                       <span key={i} className="px-3 py-1.5 bg-green/10 hover:bg-green/20 text-green-700 rounded-full text-sm font-semibold transition-colors">
@@ -123,7 +123,7 @@ export default function MomosSection() {
                       </span>
                     ))}
                   </div>
-                )}
+                ) : null}
                 {item.popular && (
                   <div className="mt-4">
                     <span className="px-3 py-1 bg-red-500 text-white rounded-full text-xs font-bold animate-pulse">
