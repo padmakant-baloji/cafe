@@ -5,6 +5,7 @@ import { gsap, registerGSAP, ScrollTrigger } from '@/lib/gsap'
 import { motion } from 'framer-motion'
 import FoodIcon from '@/components/FoodIcon'
 import MenuImage from '@/components/MenuImage'
+import TagBadge from '@/components/TagBadge'
 import menuData from '@/data/menu.json'
 import { formatPrice, formatOptions } from '@/lib/menuUtils'
 
@@ -108,7 +109,7 @@ export default function QuickBitesSection() {
                       <h3 className="text-sm md:text-base font-bold text-blue-dark group-hover:text-gold transition-colors">
                         {item.name}
                       </h3>
-                      {item.popular && (
+                      {item.tags && item.tags.includes('popular') && (
                         <span className="px-2 py-0.5 bg-red-500 text-white rounded-full text-xs font-bold animate-pulse">
                           HOT
                         </span>
@@ -138,39 +139,16 @@ export default function QuickBitesSection() {
                   </div>
                 )}
                 
-                {/* Badges */}
-                <div className="flex flex-wrap gap-1.5 mt-2">
-                  {item.spicy && (
-                    <span className="px-2 py-0.5 bg-red-100 text-red-700 rounded-full text-xs font-semibold">
-                      🌶️ Spicy
-                    </span>
-                  )}
-                  {item.crispy && (
-                    <span className="px-2 py-0.5 bg-orange-100 text-orange-700 rounded-full text-xs font-semibold">
-                      ✨ Crispy
-                    </span>
-                  )}
-                  {item.buttery && (
-                    <span className="px-2 py-0.5 bg-yellow-100 text-yellow-700 rounded-full text-xs font-semibold">
-                      🧈 Buttery
-                    </span>
-                  )}
-                  {item.cheesy && (
-                    <span className="px-2 py-0.5 bg-yellow-100 text-yellow-700 rounded-full text-xs font-semibold">
-                      🧀 Cheesy
-                    </span>
-                  )}
-                  {item.fun && (
-                    <span className="px-2 py-0.5 bg-pink-100 text-pink-700 rounded-full text-xs font-semibold">
-                      😊 Fun
-                    </span>
-                  )}
-                  {item.trio && (
-                    <span className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">
-                      🎯 Trio
-                    </span>
-                  )}
-                </div>
+                {/* Tags */}
+                {item.tags && item.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-1.5 mt-2">
+                    {item.tags
+                      .filter((tag: string) => tag !== 'popular') // popular is shown as HOT badge above
+                      .map((tag: string, tagIdx: number) => (
+                        <TagBadge key={tagIdx} tag={tag} className="px-2 py-0.5" />
+                      ))}
+                  </div>
+                )}
               </div>
             </motion.div>
           ))}

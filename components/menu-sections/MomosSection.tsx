@@ -5,6 +5,7 @@ import { gsap, registerGSAP, ScrollTrigger } from '@/lib/gsap'
 import { motion } from 'framer-motion'
 import FoodIcon from '@/components/FoodIcon'
 import MenuImage from '@/components/MenuImage'
+import TagBadge from '@/components/TagBadge'
 import menuData from '@/data/menu.json'
 import { formatPrice, formatOptions } from '@/lib/menuUtils'
 
@@ -124,18 +125,11 @@ export default function MomosSection() {
                     ))}
                   </div>
                 ) : null}
-                {item.popular && (
-                  <div className="mt-4">
-                    <span className="px-3 py-1 bg-red-500 text-white rounded-full text-xs font-bold animate-pulse">
-                      🔥 Popular
-                    </span>
-                  </div>
-                )}
-                {item.cheesy && (
-                  <div className="mt-4">
-                    <span className="px-3 py-1 bg-yellow-400 text-yellow-900 rounded-full text-xs font-bold">
-                      🧀 Cheesy
-                    </span>
+                {item.tags && item.tags.length > 0 && (
+                  <div className="mt-4 flex justify-center gap-2 flex-wrap">
+                    {item.tags.map((tag: string, tagIdx: number) => (
+                      <TagBadge key={tagIdx} tag={tag} className="px-3 py-1" />
+                    ))}
                   </div>
                 )}
               </div>

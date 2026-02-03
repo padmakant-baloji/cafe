@@ -5,6 +5,7 @@ import { gsap, registerGSAP, ScrollTrigger } from '@/lib/gsap'
 import { motion } from 'framer-motion'
 import FoodIcon from '@/components/FoodIcon'
 import MenuImage from '@/components/MenuImage'
+import TagBadge from '@/components/TagBadge'
 import menuData from '@/data/menu.json'
 import { formatPrice, formatOptions } from '@/lib/menuUtils'
 
@@ -122,11 +123,13 @@ export default function PastaSection() {
                   ))}
                 </div>
               ) : null}
-              <div className="flex justify-center gap-2 flex-wrap">
-                {item.creamy && <span className="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-semibold">🥛 Creamy</span>}
-                {item.spicy && <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-semibold">🌶️ Spicy</span>}
-                {item.tangy && <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-semibold">🍋 Tangy</span>}
-              </div>
+              {item.tags && item.tags.length > 0 && (
+                <div className="flex justify-center gap-2 flex-wrap">
+                  {item.tags.map((tag: string, tagIdx: number) => (
+                    <TagBadge key={tagIdx} tag={tag} className="px-3 py-1" />
+                  ))}
+                </div>
+              )}
             </motion.div>
           ))}
         </div>

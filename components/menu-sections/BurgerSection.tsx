@@ -5,6 +5,7 @@ import { gsap, registerGSAP, ScrollTrigger } from '@/lib/gsap'
 import { motion } from 'framer-motion'
 import FoodIcon from '@/components/FoodIcon'
 import MenuImage from '@/components/MenuImage'
+import TagBadge from '@/components/TagBadge'
 import menuData from '@/data/menu.json'
 import { formatPrice, formatOptions } from '@/lib/menuUtils'
 
@@ -127,13 +128,13 @@ export default function BurgerSection() {
                     ))}
                   </div>
                 ) : null}
-                <div className="flex justify-center gap-2 flex-wrap">
-                  {item.classic && <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold">Classic</span>}
-                  {item.crispy && <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm font-semibold">Crispy</span>}
-                  {item.spicy && <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-semibold">🌶️ Spicy</span>}
-                  {item.double && <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-semibold">Double</span>}
-                  {item.popular && <span className="px-3 py-1 bg-red-500 text-white rounded-full text-sm font-bold animate-pulse">🔥 Popular</span>}
-                </div>
+                {item.tags && item.tags.length > 0 && (
+                  <div className="flex justify-center gap-2 flex-wrap">
+                    {item.tags.map((tag: string, tagIdx: number) => (
+                      <TagBadge key={tagIdx} tag={tag} className="px-3 py-1 text-sm" />
+                    ))}
+                  </div>
+                )}
               </div>
             </motion.div>
           ))}

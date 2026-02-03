@@ -5,6 +5,7 @@ import { gsap, registerGSAP, ScrollTrigger } from '@/lib/gsap'
 import { motion } from 'framer-motion'
 import FoodIcon from '@/components/FoodIcon'
 import MenuImage from '@/components/MenuImage'
+import TagBadge from '@/components/TagBadge'
 import menuData from '@/data/menu.json'
 import { formatPrice, formatOptions } from '@/lib/menuUtils'
 
@@ -131,13 +132,13 @@ export default function PizzaSection() {
                   </div>
                 ) : null}
                 
-                <div className="mt-auto flex justify-center gap-2 flex-wrap">
-                  {item.classic && <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">Classic</span>}
-                  {item.loaded && <span className="px-2 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">Loaded</span>}
-                  {item.fresh && <span className="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">Fresh</span>}
-                  {item.spicy && <span className="px-2 py-1 bg-red-100 text-red-700 rounded-full text-xs font-semibold">🌶️ Spicy</span>}
-                  {item.cheesy && <span className="px-2 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-semibold">🧀 Cheesy</span>}
-                </div>
+                {item.tags && item.tags.length > 0 && (
+                  <div className="mt-auto flex justify-center gap-2 flex-wrap">
+                    {item.tags.map((tag: string, tagIdx: number) => (
+                      <TagBadge key={tagIdx} tag={tag} className="px-2 py-1" />
+                    ))}
+                  </div>
+                )}
               </div>
             </motion.div>
           ))}
