@@ -6,8 +6,19 @@ import { motion } from 'framer-motion'
 import FoodIcon from '@/components/FoodIcon'
 
 const items = [
-  { name: 'Crispy Gobi Manchurian', options: ['Manchurian', 'Chilli', 'Salt & Pepper'], icon: 'gobi-manchurian', popular: true },
-  { name: 'Golden Paneer Bites', desc: 'Crispy paneer in bold sauces', icon: 'paneer-bites', crispy: true },
+  // Gobi Items
+  { name: 'Gobi 65', desc: 'Spicy crispy gobi with bold flavors', icon: 'gobi-manchurian', spicy: true, popular: true },
+  { name: 'Gobi Chilly', desc: 'Tangy and spicy gobi in chilli sauce', icon: 'gobi-manchurian', spicy: true },
+  { name: 'Gobi Manchurian', desc: 'Classic Indo-Chinese gobi', icon: 'gobi-manchurian', popular: true },
+  { name: 'Gobi Salt & Pepper', desc: 'Crispy gobi with salt and pepper', icon: 'gobi-manchurian', crispy: true },
+  
+  // Paneer Items
+  { name: 'Paneer 65', desc: 'Spicy crispy paneer with bold flavors', icon: 'paneer-bites', spicy: true, popular: true },
+  { name: 'Paneer Chilly', desc: 'Tangy and spicy paneer in chilli sauce', icon: 'paneer-bites', spicy: true },
+  { name: 'Paneer Manchurian', desc: 'Classic Indo-Chinese paneer', icon: 'paneer-bites', popular: true },
+  { name: 'Paneer Salt & Pepper', desc: 'Crispy paneer with salt and pepper', icon: 'paneer-bites', crispy: true },
+  
+  // Other Items
   { name: 'Veggie Manchurian Pops', desc: 'Indo-Chinese favorite', icon: 'manchurian-pops', popular: true },
   { name: 'Corn Crunch Basket', desc: 'Fried golden corn', icon: 'corn-crunch', crispy: true },
   { name: 'American Butter Corn', desc: 'Butter tossed sweet corn', icon: 'butter-corn', buttery: true },
@@ -125,6 +136,40 @@ export default function QuickBitesSection() {
                 ) : (
                   <p className="text-sm text-blue-dark/70 mt-1">{item.desc}</p>
                 )}
+                
+                {/* Badges */}
+                <div className="flex flex-wrap gap-1.5 mt-2">
+                  {item.spicy && (
+                    <span className="px-2 py-0.5 bg-red-100 text-red-700 rounded-full text-xs font-semibold">
+                      🌶️ Spicy
+                    </span>
+                  )}
+                  {item.crispy && (
+                    <span className="px-2 py-0.5 bg-orange-100 text-orange-700 rounded-full text-xs font-semibold">
+                      ✨ Crispy
+                    </span>
+                  )}
+                  {item.buttery && (
+                    <span className="px-2 py-0.5 bg-yellow-100 text-yellow-700 rounded-full text-xs font-semibold">
+                      🧈 Buttery
+                    </span>
+                  )}
+                  {item.cheesy && (
+                    <span className="px-2 py-0.5 bg-yellow-100 text-yellow-700 rounded-full text-xs font-semibold">
+                      🧀 Cheesy
+                    </span>
+                  )}
+                  {item.fun && (
+                    <span className="px-2 py-0.5 bg-pink-100 text-pink-700 rounded-full text-xs font-semibold">
+                      😊 Fun
+                    </span>
+                  )}
+                  {item.trio && (
+                    <span className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">
+                      🎯 Trio
+                    </span>
+                  )}
+                </div>
               </div>
             </motion.div>
           ))}

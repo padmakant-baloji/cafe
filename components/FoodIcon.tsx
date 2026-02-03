@@ -25,7 +25,7 @@ export default function FoodIcon({ type, className = '', useGif = false }: FoodI
     'fries': '🍟',
     'potato-wedges': '🥔',
     'smiley-fries': '😊',
-    'nuggets': '🍗',
+    'nuggets': '🥔',
     
     // Rice & Noodles
     'rice-noodles': '🍜',
