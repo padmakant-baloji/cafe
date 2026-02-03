@@ -610,7 +610,10 @@
             "desc": "Crispy sweet noodles",
             "icon": "dessert-noodles",
             "image": "https://source.unsplash.com/featured/?dessert,noodles,sweet",
-            "price": 140,
+            "price": {
+                "half": null,
+                "full": 110
+            },
             "crispy": true,
             "sweet": true
         },
@@ -619,7 +622,10 @@
             "desc": "Warm and cold combo",
             "icon": "gulab-jamun",
             "image": "https://source.unsplash.com/featured/?gulab,jamun,ice-cream",
-            "price": 160,
+            "price": {
+                "half": null,
+                "full": 99
+            },
             "warm": true,
             "cold": true
         }
