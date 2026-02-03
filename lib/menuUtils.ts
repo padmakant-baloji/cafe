@@ -11,7 +11,10 @@ export interface MenuItem {
 }
 
 // Format price display
-export function formatPrice(price: number | { half?: number | null; full?: number | null } | {}): string {
+export function formatPrice(
+  price: number | { half?: number | null; full?: number | null } | {},
+  labels?: { first?: string; second?: string }
+): string {
   if (typeof price === 'number') {
     return `₹${price}`
   }
@@ -21,12 +24,18 @@ export function formatPrice(price: number | { half?: number | null; full?: numbe
   }
   
   const { half, full } = price as { half?: number | null; full?: number | null }
+  const firstLabel = labels?.first || ''
+  const secondLabel = labels?.second || ''
+  
   if (half !== null && half !== undefined && full !== null && full !== undefined) {
+    if (firstLabel && secondLabel) {
+      return `₹${half} ${firstLabel} / ₹${full} ${secondLabel}`
+    }
     return `₹${half} / ₹${full}`
   } else if (half !== null && half !== undefined) {
-    return `₹${half}`
+    return firstLabel ? `₹${half} ${firstLabel}` : `₹${half}`
   } else if (full !== null && full !== undefined) {
-    return `₹${full}`
+    return secondLabel ? `₹${full} ${secondLabel}` : `₹${full}`
   }
   return ''
 }

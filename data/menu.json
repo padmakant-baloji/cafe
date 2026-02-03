@@ -407,17 +407,6 @@
             },
             "spicy": true
         },
-        // {
-        //     "name": "Pepperoni Style Veg",
-        //     "desc": "Spicy veg pepperoni",
-        //     "icon": "pizza-pepperoni",
-        //     "image": "https://source.unsplash.com/featured/?pepperoni,pizza,vegetarian",
-        //     "price": {
-        //         "half": 140,
-        //         "full": 190
-        //     },
-        //     "spicy": true
-        // },
         {
             "name": "Corn & Cheese Delight",
             "desc": "Sweet corn and cheese",

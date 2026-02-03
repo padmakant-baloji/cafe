@@ -110,7 +110,7 @@ export default function PizzaSection() {
                     {item.name}
                   </h3>
                   <span className="text-base md:text-lg font-bold text-gold whitespace-nowrap">
-                    {formatPrice(item.price)}
+                    {formatPrice(item.price, { first: 'Small', second: 'Medium' })}
                   </span>
                 </div>
                 {item.desc && (
