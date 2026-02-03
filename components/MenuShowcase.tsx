@@ -14,7 +14,7 @@ import DessertsSection from './menu-sections/DessertsSection'
 
 export default function MenuShowcase() {
   return (
-    <div id="menu" className="space-y-0">
+    <div id="menu" className="scroll-mt-20 space-y-0">
       <SoupSection />
       <QuickBitesSection />
       <RiceNoodlesSection />

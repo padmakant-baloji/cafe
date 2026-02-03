@@ -13,16 +13,38 @@ export default function Hero() {
   const ctaRef = useRef<HTMLDivElement>(null)
 
   const handleExploreClick = () => {
-    if (typeof document === 'undefined') return
-
-    const menuSection = document.getElementById('menu')
-    if (!menuSection) return
+    if (typeof window === 'undefined' || typeof document === 'undefined') return
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const scrollOffset = 20 // Small offset to ensure visibility
 
-    menuSection.scrollIntoView({
-      behavior: prefersReducedMotion ? 'auto' : 'smooth',
-      block: 'start',
+    // Use requestAnimationFrame to ensure DOM is ready
+    requestAnimationFrame(() => {
+      const menuSection = document.getElementById('menu')
+      if (!menuSection) {
+        // Fallback: try scrolling to first section after a short delay
+        setTimeout(() => {
+          const firstSection = document.querySelector('section[class*="py-24"]')
+          if (firstSection) {
+            const elementPosition = firstSection.getBoundingClientRect().top + window.pageYOffset
+            const offsetPosition = elementPosition - scrollOffset
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: prefersReducedMotion ? 'auto' : 'smooth',
+            })
+          }
+        }, 100)
+        return
+      }
+
+      // Calculate the position with offset
+      const elementPosition = menuSection.getBoundingClientRect().top + window.pageYOffset
+      const offsetPosition = elementPosition - scrollOffset
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: prefersReducedMotion ? 'auto' : 'smooth',
+      })
     })
   }
 
