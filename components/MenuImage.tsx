@@ -14,9 +14,15 @@ export default function MenuImage({ src, alt, className = '', overlayIcon }: Men
   const [shouldLoad, setShouldLoad] = useState(false)
   const imgRef = useRef<HTMLImageElement>(null)
 
+  // Get basePath from environment (for GitHub Pages deployment)
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
+
   // For local images, always load immediately (important for static export)
   // For external images, use lazy loading with Intersection Observer
   const isLocalImage = src && src.startsWith('/')
+  
+  // Prepend basePath to local image paths for correct deployment
+  const imageSrc = isLocalImage ? `${basePath}${src}` : src
 
   useEffect(() => {
     // Reset error state when src changes
@@ -74,7 +80,7 @@ export default function MenuImage({ src, alt, className = '', overlayIcon }: Men
       {/* Always render local images directly for static export compatibility */}
       {isLocalImage && !hasError && (
         <img
-          src={src}
+          src={imageSrc}
           alt={alt}
           loading="eager"
           decoding="async"
@@ -88,7 +94,7 @@ export default function MenuImage({ src, alt, className = '', overlayIcon }: Men
       {/* Lazy load external images */}
       {!isLocalImage && shouldLoad && !hasError && (
         <img
-          src={src}
+          src={imageSrc}
           alt={alt}
           loading="lazy"
           decoding="async"
