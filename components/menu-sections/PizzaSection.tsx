@@ -4,15 +4,11 @@ import { useEffect, useRef } from 'react'
 import { gsap, registerGSAP, ScrollTrigger } from '@/lib/gsap'
 import { motion } from 'framer-motion'
 import FoodIcon from '@/components/FoodIcon'
+import MenuImage from '@/components/MenuImage'
+import menuData from '@/data/menu.json'
+import { formatPrice, formatOptions } from '@/lib/menuUtils'
 
-const items = [
-  { name: 'Classic Margherita', desc: 'Cheese and tomato classic', icon: 'pizza-margherita', classic: true },
-  { name: 'American Queen', desc: 'Loaded veggie pizza', icon: 'pizza-queen', loaded: true },
-  { name: 'Farmhouse Feast', desc: 'Fresh farm vegetables', icon: 'pizza-farmhouse', fresh: true },
-  { name: 'Paneer Tikka Pizza', desc: 'Indian flavored paneer topping', icon: 'pizza-paneer', spicy: true },
-  { name: 'Pepperoni Style Veg', desc: 'Spicy veg pepperoni', icon: 'pizza-pepperoni', spicy: true },
-  { name: 'Corn & Cheese Delight', desc: 'Sweet corn and cheese', icon: 'pizza-corn', cheesy: true },
-]
+const items = menuData.pizzas
 
 export default function PizzaSection() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -91,23 +87,51 @@ export default function PizzaSection() {
               key={index}
               whileHover={{ scale: 1.1, rotate: 2, y: -10 }}
               whileTap={{ scale: 0.95 }}
-              className="group bg-gradient-to-br from-gold/30 to-gold-light/20 rounded-2xl p-6 shadow-xl border-2 border-gold/40 hover:border-gold hover:shadow-2xl transition-all duration-300 cursor-pointer relative overflow-hidden"
+              className="group bg-gradient-to-br from-gold/30 to-gold-light/20 rounded-2xl p-4 md:p-6 shadow-xl border-2 border-gold/40 hover:border-gold hover:shadow-2xl transition-all duration-300 cursor-pointer relative overflow-hidden flex flex-col"
             >
               {/* Cheese pull effect */}
               <div className="absolute top-0 left-0 w-full h-full opacity-0 group-hover:opacity-100 transition-opacity">
                 <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-24 h-24 bg-yellow-300/30 rounded-full blur-3xl animate-pulse" />
               </div>
               
-              <div className="relative z-10 text-center">
+              <div className="relative z-10 text-center flex flex-col h-full">
+                <MenuImage
+                  src={item.image}
+                  alt={item.name}
+                  overlayIcon="🍕"
+                  className="mb-3"
+                />
+
                 <div className="mb-3 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-300">
-                  <FoodIcon type={item.icon} className="text-5xl" />
+                  <FoodIcon type={item.icon} className="text-4xl md:text-5xl" />
                 </div>
-                <h3 className="text-lg font-bold text-blue-dark mb-2 group-hover:text-gold transition-colors">
-                  {item.name}
-                </h3>
-                <p className="text-sm text-blue-dark/70 mb-3">{item.desc}</p>
+                <div className="flex items-center justify-between gap-2 mb-2">
+                  <h3 className="text-base md:text-lg font-bold text-blue-dark group-hover:text-gold transition-colors">
+                    {item.name}
+                  </h3>
+                  <span className="text-base md:text-lg font-bold text-gold whitespace-nowrap">
+                    {formatPrice(item.price)}
+                  </span>
+                </div>
+                {item.desc && (
+                  <p className="text-xs md:text-sm text-blue-dark/70 mb-2 px-2">
+                    {item.desc}
+                  </p>
+                )}
+                {('options' in item && item.options && formatOptions(item.options).length > 0) ? (
+                  <div className="flex flex-wrap gap-1.5 mb-2 justify-center">
+                    {formatOptions(item.options).map((opt, optIdx) => (
+                      <span key={optIdx} className="px-2 py-0.5 bg-blue-dark/10 text-blue-dark rounded-full text-xs font-medium">
+                        {opt.name}
+                        {opt.extra !== null && opt.extra !== undefined && (
+                          <span className="ml-1 text-gold">+₹{opt.extra}</span>
+                        )}
+                      </span>
+                    ))}
+                  </div>
+                ) : null}
                 
-                <div className="flex justify-center gap-2 flex-wrap">
+                <div className="mt-auto flex justify-center gap-2 flex-wrap">
                   {item.classic && <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">Classic</span>}
                   {item.loaded && <span className="px-2 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">Loaded</span>}
                   {item.fresh && <span className="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">Fresh</span>}

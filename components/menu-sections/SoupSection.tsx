@@ -4,13 +4,11 @@ import { useEffect, useRef } from 'react'
 import { gsap, registerGSAP, ScrollTrigger } from '@/lib/gsap'
 import { motion } from 'framer-motion'
 import FoodIcon from '@/components/FoodIcon'
+import MenuImage from '@/components/MenuImage'
+import menuData from '@/data/menu.json'
+import { formatPrice, formatOptions } from '@/lib/menuUtils'
 
-const items = [
-  { name: 'Classic Manchow Soup', desc: 'Spicy Indo-Chinese soup with crunchy garlic', icon: 'soup-manchow', spicy: true },
-  { name: 'Garden Fresh Tomato Soup', desc: 'Slow-cooked tomatoes with herbs', icon: 'soup-tomato', fresh: true },
-  { name: 'Creamy Mushroom Delight', desc: 'Rich and creamy mushroom soup', icon: 'soup-mushroom', creamy: true },
-  { name: 'Roasted Garlic Soup', desc: 'Aromatic garlic broth', icon: 'soup-garlic', aromatic: true },
-]
+const items = menuData.soups
 
 export default function SoupSection() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -103,7 +101,7 @@ export default function SoupSection() {
               key={index}
               whileHover={{ scale: 1.03, y: -5 }}
               whileTap={{ scale: 0.98 }}
-              className="group bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-neutral-gray/20 hover:shadow-2xl hover:border-green/40 transition-all duration-300 cursor-pointer relative overflow-hidden"
+              className="group bg-white/80 backdrop-blur-sm rounded-2xl p-4 md:p-6 shadow-lg border border-neutral-gray/20 hover:shadow-2xl hover:border-green/40 transition-all duration-300 cursor-pointer relative overflow-hidden flex flex-col"
             >
               {/* Steam effect on hover */}
               <div className="absolute top-0 left-0 w-full h-full opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -111,16 +109,41 @@ export default function SoupSection() {
                 <div className="absolute top-4 right-1/4 w-20 h-20 bg-green/15 rounded-full blur-3xl animate-pulse delay-150" />
               </div>
               
-              <div className="relative z-10">
-                <div className="flex items-start gap-4 mb-3">
-                  <FoodIcon type={item.icon} className="text-4xl group-hover:scale-125 transition-transform duration-300" />
-                  <div className="flex-1">
-                    <h3 className="text-xl font-bold text-blue-dark mb-1 group-hover:text-green transition-colors">
-                      {item.name}
-                    </h3>
-                    <p className="text-sm text-blue-dark/70">{item.desc}</p>
+              <div className="relative z-10 flex flex-col h-full">
+                <MenuImage
+                  src={item.image}
+                  alt={item.name}
+                  overlayIcon="🍲"
+                  className="mb-4"
+                />
+
+                <div className="flex items-start gap-3 mb-3">
+                  <FoodIcon type={item.icon} className="text-3xl md:text-4xl group-hover:scale-125 transition-transform duration-300" />
+                  <div className="flex-1 text-left">
+                    <div className="flex items-center justify-between gap-2 mb-1">
+                      <h3 className="text-lg md:text-xl font-bold text-blue-dark group-hover:text-green transition-colors">
+                        {item.name}
+                      </h3>
+                      <span className="text-lg md:text-xl font-bold text-gold whitespace-nowrap">
+                        {formatPrice(item.price)}
+                      </span>
+                    </div>
+                    <p className="text-xs md:text-sm text-blue-dark/70">{item.desc}</p>
                   </div>
                 </div>
+                
+                {('options' in item && item.options && formatOptions(item.options).length > 0) ? (
+                  <div className="flex flex-wrap gap-1.5 mb-2">
+                    {formatOptions(item.options).map((opt, optIdx) => (
+                      <span key={optIdx} className="px-2 py-1 bg-blue-dark/10 text-blue-dark rounded-full text-xs font-medium">
+                        {opt.name}
+                        {opt.extra !== null && opt.extra !== undefined && (
+                          <span className="ml-1 text-gold">+₹{opt.extra}</span>
+                        )}
+                      </span>
+                    ))}
+                  </div>
+                ) : null}
                 
                 <div className="flex gap-2 mt-4">
                   {item.spicy && (

@@ -4,11 +4,11 @@ import { useEffect, useRef } from 'react'
 import { gsap, registerGSAP, ScrollTrigger } from '@/lib/gsap'
 import { motion } from 'framer-motion'
 import FoodIcon from '@/components/FoodIcon'
+import MenuImage from '@/components/MenuImage'
+import menuData from '@/data/menu.json'
+import { formatPrice, formatOptions } from '@/lib/menuUtils'
 
-const items = [
-  { name: 'Veg Momos', options: ['Steamed', 'Fried', 'Cheesy', 'Schezwan'], icon: 'momos-veg', popular: true },
-  { name: 'Paneer Momos', options: ['Steamed', 'Fried', 'Cheesy', 'Schezwan'], icon: 'momos-paneer', cheesy: true },
-]
+const items = menuData.momos
 
 export default function MomosSection() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -95,19 +95,35 @@ export default function MomosSection() {
               <div className="absolute top-6 right-1/3 w-20 h-20 bg-green/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-200" />
               
               <div className="relative z-10 text-center">
+                <MenuImage
+                  src={item.image}
+                  alt={item.name}
+                  overlayIcon="🥟"
+                  className="mb-4"
+                />
                 <div className="mb-4 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-300">
                   <FoodIcon type={item.icon} className="text-6xl" />
                 </div>
-                <h3 className="text-2xl font-bold text-blue-dark mb-4 group-hover:text-green transition-colors">
-                  {item.name}
-                </h3>
-                <div className="flex flex-wrap justify-center gap-2">
-                  {item.options.map((opt, i) => (
-                    <span key={i} className="px-3 py-1.5 bg-green/10 hover:bg-green/20 text-green-700 rounded-full text-sm font-semibold transition-colors">
-                      {opt}
-                    </span>
-                  ))}
+                <div className="flex items-center justify-between gap-2 mb-4">
+                  <h3 className="text-2xl font-bold text-blue-dark group-hover:text-green transition-colors flex-1">
+                    {item.name}
+                  </h3>
+                  <span className="text-xl font-bold text-gold whitespace-nowrap">
+                    {formatPrice(item.price)}
+                  </span>
                 </div>
+                {'options' in item && item.options && formatOptions(item.options).length > 0 && (
+                  <div className="flex flex-wrap justify-center gap-2">
+                    {formatOptions(item.options).map((opt, i) => (
+                      <span key={i} className="px-3 py-1.5 bg-green/10 hover:bg-green/20 text-green-700 rounded-full text-sm font-semibold transition-colors">
+                        {opt.name}
+                        {opt.extra !== null && opt.extra !== undefined && (
+                          <span className="ml-1 text-gold">+₹{opt.extra}</span>
+                        )}
+                      </span>
+                    ))}
+                  </div>
+                )}
                 {item.popular && (
                   <div className="mt-4">
                     <span className="px-3 py-1 bg-red-500 text-white rounded-full text-xs font-bold animate-pulse">

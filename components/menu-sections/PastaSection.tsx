@@ -4,11 +4,11 @@ import { useEffect, useRef } from 'react'
 import { gsap, registerGSAP, ScrollTrigger } from '@/lib/gsap'
 import { motion } from 'framer-motion'
 import FoodIcon from '@/components/FoodIcon'
+import MenuImage from '@/components/MenuImage'
+import menuData from '@/data/menu.json'
+import { formatPrice, formatOptions } from '@/lib/menuUtils'
 
-const items = [
-  { name: 'Creamy Alfredo Pasta', desc: 'Rich white sauce pasta', icon: 'pasta-alfredo', creamy: true },
-  { name: 'Arrabiata Fusion Pasta', desc: 'Tangy mildly spicy tomato sauce', icon: 'pasta-arrabiata', spicy: true, tangy: true },
-]
+const items = menuData.pasta
 
 export default function PastaSection() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -92,13 +92,36 @@ export default function PastaSection() {
                 borderRadius: '2rem',
               }}
             >
+              <MenuImage
+                src={item.image}
+                alt={item.name}
+                overlayIcon="🍝"
+                className="mb-4"
+              />
               <div className="mb-4">
                 <FoodIcon type={item.icon} className="text-5xl group-hover:scale-125 group-hover:rotate-12 transition-transform duration-300" />
               </div>
-              <h3 className="text-xl font-bold text-blue-dark mb-2 group-hover:text-gold transition-colors">
-                {item.name}
-              </h3>
-              <p className="text-sm text-blue-dark/70 mb-4">{item.desc}</p>
+              <div className="flex items-center justify-between gap-2 mb-2">
+                <h3 className="text-xl font-bold text-blue-dark group-hover:text-gold transition-colors">
+                  {item.name}
+                </h3>
+                <span className="text-lg font-bold text-gold whitespace-nowrap">
+                  {formatPrice(item.price)}
+                </span>
+              </div>
+              {item.desc && <p className="text-sm text-blue-dark/70 mb-2">{item.desc}</p>}
+              {'options' in item && item.options && formatOptions(item.options).length > 0 && (
+                <div className="flex flex-wrap gap-1.5 mb-2 justify-center">
+                  {formatOptions(item.options).map((opt, optIdx) => (
+                    <span key={optIdx} className="px-2 py-0.5 bg-blue-dark/10 text-blue-dark rounded-full text-xs font-medium">
+                      {opt.name}
+                      {opt.extra !== null && opt.extra !== undefined && (
+                        <span className="ml-1 text-gold">+₹{opt.extra}</span>
+                      )}
+                    </span>
+                  ))}
+                </div>
+              )}
               <div className="flex justify-center gap-2 flex-wrap">
                 {item.creamy && <span className="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-semibold">🥛 Creamy</span>}
                 {item.spicy && <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-semibold">🌶️ Spicy</span>}

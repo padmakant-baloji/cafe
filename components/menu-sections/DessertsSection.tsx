@@ -4,13 +4,11 @@ import { useEffect, useRef } from 'react'
 import { gsap, registerGSAP, ScrollTrigger } from '@/lib/gsap'
 import { motion } from 'framer-motion'
 import FoodIcon from '@/components/FoodIcon'
+import MenuImage from '@/components/MenuImage'
+import menuData from '@/data/menu.json'
+import { formatPrice, formatOptions } from '@/lib/menuUtils'
 
-const items = [
-  { name: 'Sizzling Brownie with Ice Cream', desc: 'Hot brownie with cold ice cream', icon: 'sizzling-brownie', hot: true, cold: true, popular: true },
-  { name: 'Royal Shahi Tukda', desc: 'Rich Indian dessert', icon: 'shahi-tukda', royal: true, rich: true },
-  { name: 'Dessert Noodles (Darshan Style)', desc: 'Crispy sweet noodles', icon: 'dessert-noodles', crispy: true, sweet: true },
-  { name: 'Gulab Jamun with Ice Cream', desc: 'Warm and cold combo', icon: 'gulab-jamun', warm: true, cold: true },
-]
+const items = menuData.desserts
 
 export default function DessertsSection() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -89,7 +87,7 @@ export default function DessertsSection() {
               key={index}
               whileHover={{ scale: 1.05, y: -8, boxShadow: '0 0 40px rgba(251, 191, 36, 0.6)' }}
               whileTap={{ scale: 0.98 }}
-              className="group bg-neutral-white/95 backdrop-blur-sm rounded-2xl p-8 shadow-2xl border border-gold/30 hover:border-gold transition-all duration-300 cursor-pointer relative overflow-hidden"
+              className="group bg-neutral-white/95 backdrop-blur-sm rounded-2xl p-4 md:p-8 shadow-2xl border border-gold/30 hover:border-gold transition-all duration-300 cursor-pointer relative overflow-hidden flex flex-col"
               style={{
                 boxShadow: '0 10px 40px rgba(0, 0, 0, 0.3)',
               }}
@@ -97,16 +95,40 @@ export default function DessertsSection() {
               {/* Glow effect */}
               <div className="absolute inset-0 bg-gradient-to-br from-gold/20 via-transparent to-gold/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               
-              <div className="relative z-10">
-                <div className="flex items-center justify-center mb-4">
-                  <FoodIcon type={item.icon} className="text-6xl group-hover:scale-125 group-hover:rotate-12 transition-transform duration-300" />
+              <div className="relative z-10 flex flex-col h-full">
+                <MenuImage
+                  src={item.image}
+                  alt={item.name}
+                  overlayIcon="🍰"
+                  className="mb-4"
+                />
+
+                <div className="flex items-center justify-center mb-3">
+                  <FoodIcon type={item.icon} className="text-5xl md:text-6xl group-hover:scale-125 group-hover:rotate-12 transition-transform duration-300" />
                 </div>
-                <h3 className="text-xl font-bold text-blue-dark text-center mb-2 group-hover:text-gold transition-colors">
-                  {item.name}
-                </h3>
-                <p className="text-base text-blue-dark/70 text-center mb-4">{item.desc}</p>
+                <div className="flex items-center justify-between gap-2 mb-2">
+                  <h3 className="text-lg md:text-xl font-bold text-blue-dark group-hover:text-gold transition-colors flex-1 text-center">
+                    {item.name}
+                  </h3>
+                  <span className="text-lg md:text-xl font-bold text-gold whitespace-nowrap">
+                    {formatPrice(item.price)}
+                  </span>
+                </div>
+                {item.desc && <p className="text-sm md:text-base text-blue-dark/70 text-center mb-2">{item.desc}</p>}
+                {('options' in item && item.options && formatOptions(item.options).length > 0) ? (
+                  <div className="flex flex-wrap gap-1.5 mb-3 justify-center">
+                    {formatOptions(item.options).map((opt, optIdx) => (
+                      <span key={optIdx} className="px-2 py-0.5 bg-blue-dark/10 text-blue-dark rounded-full text-xs font-medium">
+                        {opt.name}
+                        {opt.extra !== null && opt.extra !== undefined && (
+                          <span className="ml-1 text-gold">+₹{opt.extra}</span>
+                        )}
+                      </span>
+                    ))}
+                  </div>
+                ) : null}
                 
-                <div className="flex justify-center gap-2 flex-wrap">
+                <div className="mt-auto flex justify-center gap-2 flex-wrap">
                   {item.hot && <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-semibold">🔥 Hot</span>}
                   {item.cold && <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">❄️ Cold</span>}
                   {item.royal && <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">👑 Royal</span>}

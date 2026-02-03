@@ -4,14 +4,11 @@ import { useEffect, useRef } from 'react'
 import { gsap, registerGSAP, ScrollTrigger } from '@/lib/gsap'
 import { motion } from 'framer-motion'
 import FoodIcon from '@/components/FoodIcon'
+import MenuImage from '@/components/MenuImage'
+import menuData from '@/data/menu.json'
+import { formatPrice, formatOptions } from '@/lib/menuUtils'
 
-const items = [
-  { name: 'Schezwan Fire Rice / Noodles', desc: 'Spicy and smoky', icon: 'schezwan-rice', spicy: true },
-  { name: 'Chilli Garlic Rice / Noodles', desc: 'Garlic-forward street style', icon: 'chilli-garlic-rice', spicy: true },
-  { name: 'Classic Veg Fried Rice / Noodles', desc: 'Light and comforting', icon: 'fried-rice', classic: true },
-  { name: "Baloji's Special Fried Rice / Noodles", desc: "Chef's special", icon: 'fried-rice', special: true },
-  { name: 'Hakka Noodles', desc: 'Classic Indo-Chinese style', icon: 'hakka-noodles', classic: true },
-]
+const items = menuData.riceNoodles
 
 export default function RiceNoodlesSection() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -94,19 +91,45 @@ export default function RiceNoodlesSection() {
               key={index}
               whileHover={{ scale: 1.02, x: index % 2 === 0 ? 5 : -5 }}
               whileTap={{ scale: 0.98 }}
-              className="group bg-white/80 rounded-xl p-6 shadow-md border-l-4 border-green hover:border-green hover:shadow-lg transition-all duration-300 cursor-pointer flex items-center gap-4"
+              className="group bg-white/80 rounded-xl p-6 shadow-md border-l-4 border-green hover:border-green hover:shadow-lg transition-all duration-300 cursor-pointer"
             >
-              <FoodIcon type={item.icon} className="text-3xl group-hover:scale-125 transition-transform duration-300" />
-              <div className="flex-1">
-                <h3 className="text-lg font-bold text-blue-dark mb-1 group-hover:text-green transition-colors">
-                  {item.name}
-                </h3>
-                <p className="text-sm text-blue-dark/70">{item.desc}</p>
-              </div>
-              <div className="flex gap-2">
-                {item.spicy && <span className="px-2 py-1 bg-red-100 text-red-700 rounded-full text-xs font-semibold">🌶️</span>}
-                {item.classic && <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">⭐</span>}
-                {item.special && <span className="px-2 py-1 bg-gold/20 text-gold rounded-full text-xs font-semibold">✨</span>}
+              <div className="flex items-center gap-4">
+                <div className="w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden">
+                  <MenuImage
+                    src={item.image}
+                    alt={item.name}
+                    className="w-full h-full"
+                  />
+                </div>
+                <FoodIcon type={item.icon} className="text-3xl group-hover:scale-125 transition-transform duration-300" />
+                <div className="flex-1">
+                  <div className="flex items-center justify-between gap-2 mb-1">
+                    <h3 className="text-lg font-bold text-blue-dark group-hover:text-green transition-colors">
+                      {item.name}
+                    </h3>
+                    <span className="text-lg font-bold text-gold whitespace-nowrap">
+                      {formatPrice(item.price)}
+                    </span>
+                  </div>
+                  {item.desc && <p className="text-sm text-blue-dark/70 mb-2">{item.desc}</p>}
+                  {'options' in item && item.options && formatOptions(item.options).length > 0 && (
+                    <div className="flex flex-wrap gap-1.5">
+                      {formatOptions(item.options).map((opt, optIdx) => (
+                        <span key={optIdx} className="px-2 py-0.5 bg-blue-dark/10 text-blue-dark rounded-full text-xs font-medium">
+                          {opt.name}
+                          {opt.extra !== null && opt.extra !== undefined && (
+                            <span className="ml-1 text-gold">+₹{opt.extra}</span>
+                          )}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <div className="flex gap-2">
+                  {item.spicy && <span className="px-2 py-1 bg-red-100 text-red-700 rounded-full text-xs font-semibold">🌶️</span>}
+                  {item.classic && <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">⭐</span>}
+                  {item.special && <span className="px-2 py-1 bg-gold/20 text-gold rounded-full text-xs font-semibold">✨</span>}
+                </div>
               </div>
             </motion.div>
           ))}

@@ -4,14 +4,11 @@ import { useEffect, useRef } from 'react'
 import { gsap, registerGSAP, ScrollTrigger } from '@/lib/gsap'
 import { motion } from 'framer-motion'
 import FoodIcon from '@/components/FoodIcon'
+import MenuImage from '@/components/MenuImage'
+import menuData from '@/data/menu.json'
+import { formatPrice, formatOptions } from '@/lib/menuUtils'
 
-const items = [
-  { name: 'Grilled Veg Sandwich', desc: 'Butter grilled veggies', icon: 'sandwich-grilled', grilled: true },
-  { name: 'Paneer Tikka Sandwich', desc: 'Smoky paneer filling', icon: 'sandwich-paneer', smoky: true },
-  { name: 'Classic Veg Sandwich', desc: 'Simple and tasty', icon: 'sandwich-veg', classic: true },
-  { name: 'Bombay Masala Sandwich', desc: 'Street-style layered sandwich', icon: 'sandwich-bombay', spicy: true },
-  { name: "Baloji's Special Sandwich", desc: 'Loaded and cheesy', icon: 'sandwich-special', special: true, cheesy: true },
-]
+const items = menuData.sandwiches
 
 export default function SandwichSection() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -92,12 +89,36 @@ export default function SandwichSection() {
               whileTap={{ scale: 0.98 }}
               className="group bg-neutral-light rounded-xl p-6 shadow-md border border-neutral-gray/30 hover:border-blue hover:shadow-lg transition-all duration-300 cursor-pointer flex items-center gap-4"
             >
+              <div className="w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden">
+                <MenuImage
+                  src={item.image}
+                  alt={item.name}
+                  className="w-full h-full"
+                />
+              </div>
               <FoodIcon type={item.icon} className="text-3xl group-hover:scale-125 transition-transform duration-300" />
               <div className="flex-1">
-                <h3 className="text-lg font-bold text-blue-dark mb-1 group-hover:text-blue transition-colors">
-                  {item.name}
-                </h3>
-                <p className="text-sm text-blue-dark/70">{item.desc}</p>
+                <div className="flex items-center justify-between gap-2 mb-1">
+                  <h3 className="text-lg font-bold text-blue-dark group-hover:text-blue transition-colors">
+                    {item.name}
+                  </h3>
+                  <span className="text-base font-bold text-gold whitespace-nowrap">
+                    {formatPrice(item.price)}
+                  </span>
+                </div>
+                {item.desc && <p className="text-sm text-blue-dark/70 mb-1">{item.desc}</p>}
+                {'options' in item && item.options && formatOptions(item.options).length > 0 && (
+                  <div className="flex flex-wrap gap-1">
+                    {formatOptions(item.options).map((opt, optIdx) => (
+                      <span key={optIdx} className="px-1.5 py-0.5 bg-blue-dark/10 text-blue-dark rounded-full text-xs font-medium">
+                        {opt.name}
+                        {opt.extra !== null && opt.extra !== undefined && (
+                          <span className="ml-1 text-gold">+₹{opt.extra}</span>
+                        )}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
               <div className="flex gap-1 flex-wrap">
                 {item.grilled && <span className="px-2 py-0.5 bg-orange-100 text-orange-700 rounded-full text-xs">🔥</span>}

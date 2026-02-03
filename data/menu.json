@@ -1,353 +1,606 @@
 {
-  "soups": [
-    {
-      "name": "Classic Manchow Soup",
-      "desc": "Spicy Indo-Chinese soup with crunchy garlic",
-      "icon": "soup-manchow",
-      "spicy": true
-    },
-    {
-      "name": "Garden Fresh Tomato Soup",
-      "desc": "Slow-cooked tomatoes with herbs",
-      "icon": "soup-tomato",
-      "fresh": true
-    },
-    {
-      "name": "Creamy Mushroom Delight",
-      "desc": "Rich and creamy mushroom soup",
-      "icon": "soup-mushroom",
-      "creamy": true
-    },
-    {
-      "name": "Roasted Garlic Soup",
-      "desc": "Aromatic garlic broth",
-      "icon": "soup-garlic",
-      "aromatic": true
-    }
-  ],
-  "quickBites": [
-    {
-      "name": "Gobi 65",
-      "desc": "Spicy crispy gobi with bold flavors",
-      "icon": "gobi-manchurian",
-      "spicy": true,
-      "popular": true
-    },
-    {
-      "name": "Gobi Chilly",
-      "desc": "Tangy and spicy gobi in chilli sauce",
-      "icon": "gobi-manchurian",
-      "spicy": true
-    },
-    {
-      "name": "Gobi Manchurian",
-      "desc": "Classic Indo-Chinese gobi",
-      "icon": "gobi-manchurian",
-      "popular": true
-    },
-    {
-      "name": "Gobi Salt & Pepper",
-      "desc": "Crispy gobi with salt and pepper",
-      "icon": "gobi-manchurian",
-      "crispy": true
-    },
-    {
-      "name": "Paneer 65",
-      "desc": "Spicy crispy paneer with bold flavors",
-      "icon": "paneer-bites",
-      "spicy": true,
-      "popular": true
-    },
-    {
-      "name": "Paneer Chilly",
-      "desc": "Tangy and spicy paneer in chilli sauce",
-      "icon": "paneer-bites",
-      "spicy": true
-    },
-    {
-      "name": "Paneer Manchurian",
-      "desc": "Classic Indo-Chinese paneer",
-      "icon": "paneer-bites",
-      "popular": true
-    },
-    {
-      "name": "Paneer Salt & Pepper",
-      "desc": "Crispy paneer with salt and pepper",
-      "icon": "paneer-bites",
-      "crispy": true
-    },
-    {
-      "name": "Veggie Manchurian Pops",
-      "desc": "Indo-Chinese favorite",
-      "icon": "manchurian-pops",
-      "popular": true
-    },
-    {
-      "name": "Corn Crunch Basket",
-      "desc": "Fried golden corn",
-      "icon": "corn-crunch",
-      "crispy": true
-    },
-    {
-      "name": "American Butter Corn",
-      "desc": "Butter tossed sweet corn",
-      "icon": "butter-corn",
-      "buttery": true
-    },
-    {
-      "name": "Cheesy Corn Balls",
-      "desc": "Crunchy outside, gooey inside",
-      "icon": "corn-balls",
-      "cheesy": true
-    },
-    {
-      "name": "French Fries Trio",
-      "desc": "French fries three ways",
-      "icon": "fries",
-      "options": ["Salted", "Masala", "Peri-Peri"],
-      "trio": true
-    },
-    {
-      "name": "Spiced Potato Wedges",
-      "desc": "Crispy seasoned wedges",
-      "icon": "potato-wedges",
-      "spicy": true
-    },
-    {
-      "name": "Smiley Fries",
-      "desc": "Fun crispy potato snacks",
-      "icon": "smiley-fries",
-      "fun": true
-    },
-    {
-      "name": "Veg Nuggets",
-      "desc": "Golden fried veggie nuggets",
-      "icon": "nuggets",
-      "crispy": true
-    }
-  ],
-  "riceNoodles": [
-    {
-      "name": "Schezwan Fire Rice / Noodles",
-      "desc": "Spicy and smoky",
-      "icon": "schezwan-rice",
-      "spicy": true
-    },
-    {
-      "name": "Chilli Garlic Rice / Noodles",
-      "desc": "Garlic-forward street style",
-      "icon": "chilli-garlic-rice",
-      "spicy": true
-    },
-    {
-      "name": "Classic Veg Fried Rice / Noodles",
-      "desc": "Light and comforting",
-      "icon": "fried-rice",
-      "classic": true
-    },
-    {
-      "name": "Baloji's Special Fried Rice / Noodles",
-      "desc": "Chef's special",
-      "icon": "fried-rice",
-      "special": true
-    },
-    {
-      "name": "Hakka Noodles",
-      "desc": "Classic Indo-Chinese style",
-      "icon": "hakka-noodles",
-      "classic": true
-    }
-  ],
-  "rolls": [
-    {
-      "name": "Kolkata Style Veg Roll",
-      "desc": "Spiced filling in soft roti",
-      "icon": "kolkata-roll",
-      "spicy": true
-    },
-    {
-      "name": "Crispy Spring Roll",
-      "desc": "Golden fried rolls",
-      "icon": "spring-roll",
-      "crispy": true
-    },
-    {
-      "name": "Baloji's Special Roll",
-      "desc": "Loaded with sauces and crunch",
-      "icon": "special-roll",
-      "special": true,
-      "loaded": true
-    }
-  ],
-  "pasta": [
-    {
-      "name": "Creamy Alfredo Pasta",
-      "desc": "Rich white sauce pasta",
-      "icon": "pasta-alfredo",
-      "creamy": true
-    },
-    {
-      "name": "Arrabiata Fusion Pasta",
-      "desc": "Tangy mildly spicy tomato sauce",
-      "icon": "pasta-arrabiata",
-      "spicy": true,
-      "tangy": true
-    }
-  ],
-  "pizzas": [
-    {
-      "name": "Classic Margherita",
-      "desc": "Cheese and tomato classic",
-      "icon": "pizza-margherita",
-      "classic": true
-    },
-    {
-      "name": "American Queen",
-      "desc": "Loaded veggie pizza",
-      "icon": "pizza-queen",
-      "loaded": true
-    },
-    {
-      "name": "Farmhouse Feast",
-      "desc": "Fresh farm vegetables",
-      "icon": "pizza-farmhouse",
-      "fresh": true
-    },
-    {
-      "name": "Paneer Tikka Pizza",
-      "desc": "Indian flavored paneer topping",
-      "icon": "pizza-paneer",
-      "spicy": true
-    },
-    {
-      "name": "Pepperoni Style Veg",
-      "desc": "Spicy veg pepperoni",
-      "icon": "pizza-pepperoni",
-      "spicy": true
-    },
-    {
-      "name": "Corn & Cheese Delight",
-      "desc": "Sweet corn and cheese",
-      "icon": "pizza-corn",
-      "cheesy": true
-    }
-  ],
-  "burgers": [
-    {
-      "name": "Classic Veg Burger",
-      "desc": "Crispy patty with fresh veggies",
-      "icon": "burger-veg",
-      "classic": true
-    },
-    {
-      "name": "Paneer Crunch Burger",
-      "desc": "Spiced paneer patty",
-      "icon": "burger-paneer",
-      "crispy": true,
-      "spicy": true
-    },
-    {
-      "name": "Double Decker Burger",
-      "desc": "Two patties, extra indulgent",
-      "icon": "burger-double",
-      "double": true,
-      "popular": true
-    }
-  ],
-  "sandwiches": [
-    {
-      "name": "Grilled Veg Sandwich",
-      "desc": "Butter grilled veggies",
-      "icon": "sandwich-grilled",
-      "grilled": true
-    },
-    {
-      "name": "Paneer Tikka Sandwich",
-      "desc": "Smoky paneer filling",
-      "icon": "sandwich-paneer",
-      "smoky": true
-    },
-    {
-      "name": "Classic Veg Sandwich",
-      "desc": "Simple and tasty",
-      "icon": "sandwich-veg",
-      "classic": true
-    },
-    {
-      "name": "Bombay Masala Sandwich",
-      "desc": "Street-style layered sandwich",
-      "icon": "sandwich-bombay",
-      "spicy": true
-    },
-    {
-      "name": "Baloji's Special Sandwich",
-      "desc": "Loaded and cheesy",
-      "icon": "sandwich-special",
-      "special": true,
-      "cheesy": true
-    }
-  ],
-  "momos": [
-    {
-      "name": "Veg Momos",
-      "options": ["Steamed", "Fried", "Cheesy", "Schezwan"],
-      "icon": "momos-veg",
-      "popular": true
-    },
-    {
-      "name": "Paneer Momos",
-      "options": ["Steamed", "Fried", "Cheesy", "Schezwan"],
-      "icon": "momos-paneer",
-      "cheesy": true
-    }
-  ],
-  "beverages": [
-    {
-      "name": "Hot Coffee",
-      "desc": "Freshly brewed",
-      "icon": "coffee-hot"
-    },
-    {
-      "name": "Cold Coffee",
-      "desc": "Chilled and creamy",
-      "icon": "coffee-cold"
-    },
-    {
-      "name": "Masala Chai",
-      "desc": "Traditional Indian tea",
-      "icon": "chai"
-    }
-  ],
-  "desserts": [
-    {
-      "name": "Sizzling Brownie with Ice Cream",
-      "desc": "Hot brownie with cold ice cream",
-      "icon": "sizzling-brownie",
-      "hot": true,
-      "cold": true,
-      "popular": true
-    },
-    {
-      "name": "Royal Shahi Tukda",
-      "desc": "Rich Indian dessert",
-      "icon": "shahi-tukda",
-      "royal": true,
-      "rich": true
-    },
-    {
-      "name": "Dessert Noodles (Darshan Style)",
-      "desc": "Crispy sweet noodles",
-      "icon": "dessert-noodles",
-      "crispy": true,
-      "sweet": true
-    },
-    {
-      "name": "Gulab Jamun with Ice Cream",
-      "desc": "Warm and cold combo",
-      "icon": "gulab-jamun",
-      "warm": true,
-      "cold": true
-    }
-  ]
+    "soups": [
+        {
+            "name": "Classic Manchow Soup",
+            "desc": "Spicy Indo-Chinese soup with crunchy garlic",
+            "icon": "soup-manchow",
+            "image": "https://sinfullyspicy.com/wp-content/uploads/2023/12/1-1.jpg",
+            "price": {
+                "half": 50,
+                "full": 80
+            },
+            "spicy": true
+        },
+        {
+            "name": "Garden Fresh Tomato Soup",
+            "desc": "Slow-cooked tomatoes with herbs",
+            "icon": "soup-tomato",
+            "image": "https://source.unsplash.com/featured/?tomato-soup,herbs",
+            "price": {
+                "half": 60,
+                "full": 110
+            },
+            "fresh": true
+        },
+        {
+            "name": "Creamy Mushroom Delight",
+            "desc": "Rich and creamy mushroom soup",
+            "icon": "soup-mushroom",
+            "image": "https://source.unsplash.com/featured/?mushroom-soup,cream",
+            "price": {
+                "half": 70,
+                "full": 110
+            },
+            "creamy": true
+        },
+        {
+            "name": "Roasted Garlic Soup",
+            "desc": "Aromatic garlic broth",
+            "icon": "soup-garlic",
+            "image": "https://source.unsplash.com/featured/?garlic-soup,broth",
+            "price": {
+                "half": 60,
+                "full": 99
+            },
+            "aromatic": true
+        }
+    ],
+    "quickBites": [
+        {
+            "name": "Gobi 65",
+            "desc": "Spicy crispy gobi with bold flavors",
+            "icon": "gobi-manchurian",
+            "image": "https://source.unsplash.com/featured/?gobi,cauliflower,fried",
+            "price": {
+                "half": 70,
+                "full": 120
+            },
+            "spicy": true,
+            "popular": true
+        },
+        {
+            "name": "Gobi Chilly",
+            "desc": "Tangy and spicy gobi in chilli sauce",
+            "icon": "gobi-manchurian",
+            "image": "https://source.unsplash.com/featured/?gobi,chilli,indo-chinese",
+            "price": {
+                "half": 60,
+                "full": 110
+            },
+            "spicy": true
+        },
+        {
+            "name": "Gobi Manchurian",
+            "desc": "Classic Indo-Chinese gobi",
+            "icon": "gobi-manchurian",
+            "image": "https://source.unsplash.com/featured/?gobi,manchurian",
+            "price": {
+                "half": 60,
+                "full": 110
+            },
+            "popular": true
+        },
+        {
+            "name": "Gobi Salt & Pepper",
+            "desc": "Crispy gobi with salt and pepper",
+            "icon": "gobi-manchurian",
+            "image": "https://source.unsplash.com/featured/?cauliflower,fried,snack",
+            "price": {
+                "half": 60,
+                "full": 110
+            },
+            "crispy": true
+        },
+        {
+            "name": "Paneer 65",
+            "desc": "Spicy crispy paneer with bold flavors",
+            "icon": "paneer-bites",
+            "image": "https://source.unsplash.com/featured/?paneer,fried,indian",
+            "price": {
+                "half": 100,
+                "full": 190
+            },
+            "spicy": true,
+            "popular": true
+        },
+        {
+            "name": "Paneer Chilly",
+            "desc": "Tangy and spicy paneer in chilli sauce",
+            "icon": "paneer-bites",
+            "image": "https://source.unsplash.com/featured/?paneer,chilli,indo-chinese",
+            "price": {
+                "half": 99,
+                "full": 190
+            },
+            "spicy": true
+        },
+        {
+            "name": "Paneer Manchurian",
+            "desc": "Classic Indo-Chinese paneer",
+            "icon": "paneer-bites",
+            "image": "https://source.unsplash.com/featured/?paneer,manchurian",
+            "price": {
+                "half": 99,
+                "full": 190
+            },
+            "popular": true
+        },
+        {
+            "name": "Paneer Salt & Pepper",
+            "desc": "Crispy paneer with salt and pepper",
+            "icon": "paneer-bites",
+            "image": "https://source.unsplash.com/featured/?paneer,fried,snack",
+            "price": {
+                "half": 99,
+                "full": 190
+            },
+            "crispy": true
+        },
+        {
+            "name": "Veggie Manchurian Pops",
+            "desc": "Indo-Chinese favorite",
+            "icon": "manchurian-pops",
+            "image": "https://source.unsplash.com/featured/?vegetable,manchurian,balls",
+            "price": {
+                "half": 50,
+                "full": 90
+            },
+            "popular": true
+        },
+        {
+            "name": "Corn Crunch Basket",
+            "desc": "Fried golden corn",
+            "icon": "corn-crunch",
+            "image": "https://source.unsplash.com/featured/?corn,kernels,fried",
+            "price": {
+                "half": null,
+                "full": 120
+            },
+            "crispy": true  
+        },
+        {
+            "name": "American Butter Corn",
+            "desc": "Butter tossed sweet corn",
+            "icon": "butter-corn",
+            "image": "https://source.unsplash.com/featured/?corn,butter,snack",
+            "price": {
+                "half": null,
+                "full": 99
+            },
+            "buttery": true
+        },
+        {
+            "name": "Cheesy Corn Balls",
+            "desc": "Crunchy outside, gooey inside",
+            "icon": "corn-balls",
+            "image": "https://source.unsplash.com/featured/?cheese,balls,snack",
+            "price": {
+                "half": null,
+                "full": 199
+            },
+            "cheesy": true
+        },
+        {
+            "name": "French Fries",
+            "desc": "French fries three ways",
+            "icon": "fries",
+            "image": "https://source.unsplash.com/featured/?french-fries,potato",
+            "price": {
+                "half": null,
+                "full": 99
+            },
+            "options": [
+                {"Salted" : null},
+                {"Masala" : 10},
+                {"Peri-Peri" : 10}
+            ],
+            "trio": true
+        },
+        {
+            "name": "Spiced Potato Wedges",
+            "desc": "Crispy seasoned wedges",
+            "icon": "potato-wedges",
+            "image": "https://source.unsplash.com/featured/?potato,wedges,snack",
+            "price": {
+                "half": null,
+                "full": 130
+            },
+            "spicy": true
+        },
+        {
+            "name": "Smiley Fries",
+            "desc": "Fun crispy potato snacks",
+            "icon": "smiley-fries",
+            "image": "https://source.unsplash.com/featured/?potato,smiley,fries",
+            "price": 110,
+            "options": [
+                {"Salted" : null},
+                {"Masala" : 10},
+                {"Peri-Peri" : 10}
+            ],
+            "fun": true
+        },
+        {
+            "name": "Veg Nuggets",
+            "desc": "Golden fried veggie nuggets",
+            "icon": "nuggets",
+            "image": "https://source.unsplash.com/featured/?vegetarian,nuggets",
+            "price": {
+                "half": null,
+                "full": 120
+            },
+            "crispy": true
+        }
+    ],
+    "riceNoodles": [
+        {
+            "name": "Schezwan Fire Rice / Noodles",
+            "desc": "Spicy and smoky",
+            "icon": "schezwan-rice",
+            "image": "https://source.unsplash.com/featured/?schezwan,rice,spicy",
+            "price": {
+                "half": 80,
+                "full": 150
+            },
+            "spicy": true
+        },
+        {
+            "name": "Chilli Garlic Rice / Noodles",
+            "desc": "Garlic-forward street style",
+            "icon": "chilli-garlic-rice",
+            "image": "https://source.unsplash.com/featured/?chilli,garlic,rice",
+            "price": {
+                "half": 80,
+                "full": 150
+            },
+            "spicy": true
+        },
+        {
+            "name": "Classic Veg Fried Rice / Noodles",
+            "desc": "Light and comforting",
+            "icon": "fried-rice",
+            "image": "https://source.unsplash.com/featured/?fried-rice,vegetable",
+            "price": {
+                "half": 70,
+                "full": 130
+            },
+            "classic": true
+        },
+        {
+            "name": "Baloji's Special Fried Rice / Noodles",
+            "desc": "Chef's special",
+            "icon": "fried-rice",
+            "image": "https://source.unsplash.com/featured/?special,fried-rice",
+            "price": {
+                "half": 90,
+                "full": 170
+            },
+            "special": true
+        },
+        {
+            "name": "Hakka Noodles",
+            "desc": "Classic Indo-Chinese style",
+            "icon": "hakka-noodles",
+            "image": "https://source.unsplash.com/featured/?hakka,noodles,indo-chinese",
+            "price": {
+                "half": 70,
+                "full": 130
+            },
+            "classic": true
+        }
+    ],
+    "rolls": [
+        {
+            "name": "Kolkata Style Veg Roll",
+            "desc": "Spiced filling in soft roti",
+            "icon": "kolkata-roll",
+            "image": "https://source.unsplash.com/featured/?kolkata,roll,paratha",
+            "price": {
+                "half": null,
+                "full": 99
+            },
+            "spicy": true
+        },
+        {
+            "name": "Crispy Spring Roll",
+            "desc": "Golden fried rolls",
+            "icon": "spring-roll",
+            "image": "https://source.unsplash.com/featured/?spring,roll,fried",
+            "price": {
+                "half": null,
+                "full": 140
+            },
+            "crispy": true
+        },
+        {
+            "name": "Baloji's Special Roll",
+            "desc": "Loaded with sauces and crunch",
+            "icon": "special-roll",
+            "image": "https://source.unsplash.com/featured/?special,roll,loaded",
+            "price": {
+                "half": null,
+                "full": 150
+            },
+            "special": true,
+            "loaded": true
+        }
+    ],
+    "pasta": [
+        {
+            "name": "Creamy Alfredo Pasta",
+            "desc": "Rich white sauce pasta",
+            "icon": "pasta-alfredo",
+            "image": "https://source.unsplash.com/featured/?alfredo,pasta,cream",
+            "price": {
+                "half": null,
+                "full": 150
+            },
+            "creamy": true
+        },
+        {
+            "name": "Arrabiata Fusion Pasta",
+            "desc": "Tangy mildly spicy tomato sauce",
+            "icon": "pasta-arrabiata",
+            "image": "https://source.unsplash.com/featured/?arrabiata,pasta,tomato",
+            "price": {
+                "half": null,
+                "full": 150
+            },
+            "spicy": true,
+            "tangy": true
+        },
+        {
+            "name": "Green Forest Pasta",
+            "desc": "Green forest pasta with spinach and cheese",
+            "icon": "pasta-arrabiata",
+            "image": "https://source.unsplash.com/featured/?arrabiata,pasta,tomato",
+            "price": {
+                "half": null,
+                "full": 180
+            },
+            "spicy": true,
+            "tangy": true
+        }
+    ],
+    "pizzas": [
+        {
+            "name": "Classic Margherita",
+            "desc": "Cheese and tomato classic",
+            "icon": "pizza-margherita",
+            "image": "https://source.unsplash.com/featured/?margherita,pizza",
+            "price": {
+                "half": 99,
+                "full": 150
+            },
+            "classic": true
+        },
+        {
+            "name": "American Queen",
+            "desc": "Loaded veggie pizza",
+            "icon": "pizza-queen",
+            "image": "https://source.unsplash.com/featured/?veggie,pizza",
+            "price": {
+                "half": 120,
+                "full": 170
+            },
+            "loaded": true
+        },
+        {
+            "name": "Farmhouse Feast",
+            "desc": "Fresh farm vegetables",
+            "icon": "pizza-farmhouse",
+            "image": "https://source.unsplash.com/featured/?farmhouse,pizza,vegetable",
+            "price": {
+                "half": 130,
+                "full": 180
+            },
+            "fresh": true
+        },
+        {
+            "name": "Paneer Tikka Pizza",
+            "desc": "Indian flavored paneer topping",
+            "icon": "pizza-paneer",
+            "image": "https://source.unsplash.com/featured/?paneer,tikka,pizza",
+            "price": {
+                "half": 130,
+                "full": 180
+            },
+            "spicy": true
+        },
+        // {
+        //     "name": "Pepperoni Style Veg",
+        //     "desc": "Spicy veg pepperoni",
+        //     "icon": "pizza-pepperoni",
+        //     "image": "https://source.unsplash.com/featured/?pepperoni,pizza,vegetarian",
+        //     "price": {
+        //         "half": 140,
+        //         "full": 190
+        //     },
+        //     "spicy": true
+        // },
+        {
+            "name": "Corn & Cheese Delight",
+            "desc": "Sweet corn and cheese",
+            "icon": "pizza-corn",
+            "image": "https://source.unsplash.com/featured/?corn,cheese,pizza",
+            "price": {
+                "half": 120,
+                "full": 170
+            },
+            "cheesy": true
+        }
+    ],
+    "burgers": [
+        {
+            "name": "Classic Veg Burger",
+            "desc": "Crispy patty with fresh veggies",
+            "icon": "burger-veg",
+            "image": "https://source.unsplash.com/featured/?vegetarian,burger",
+            "price": {
+                "half": null,
+                "full": 99
+            },
+            "classic": true
+        },
+        {
+            "name": "Paneer Crunch Burger",
+            "desc": "Spiced paneer patty",
+            "icon": "burger-paneer",
+            "image": "https://source.unsplash.com/featured/?paneer,burger",
+            "price": {
+                "half": null,
+                "full": 120
+            },
+            "crispy": true,
+            "spicy": true
+        },
+        {
+            "name": "Double Decker Burger",
+            "desc": "Two patties, extra indulgent",
+            "icon": "burger-double",
+            "image": "https://source.unsplash.com/featured/?double,burger",
+            "price": {
+                "half": null,
+                "full": 180
+            },
+            "double": true,
+            "popular": true
+        }
+    ],
+    "sandwiches": [
+        {
+            "name": "Grilled Veg Sandwich",
+            "desc": "Butter grilled veggies",
+            "icon": "sandwich-grilled",
+            "image": "https://source.unsplash.com/featured/?grilled,sandwich,vegetable",
+            "price": {
+                "half": null,
+                "full": 120
+            },
+            "grilled": true
+        },
+        {
+            "name": "Paneer Tikka Sandwich",
+            "desc": "Smoky paneer filling",
+            "icon": "sandwich-paneer",
+            "image": "https://source.unsplash.com/featured/?paneer,tikka,sandwich",
+            "price": 150,
+            "smoky": true
+        },
+        {
+            "name": "Classic Veg Sandwich",
+            "desc": "Simple and tasty",
+            "icon": "sandwich-veg",
+            "image": "https://source.unsplash.com/featured/?vegetable,sandwich",
+            "price": 100,
+            "classic": true
+        },
+        {
+            "name": "Bombay Masala Sandwich",
+            "desc": "Street-style layered sandwich",
+            "icon": "sandwich-bombay",
+            "image": "https://source.unsplash.com/featured/?bombay,masala,sandwich",
+            "price": 130,
+            "spicy": true
+        },
+        {
+            "name": "Baloji's Special Sandwich",
+            "desc": "Loaded and cheesy",
+            "icon": "sandwich-special",
+            "image": "https://source.unsplash.com/featured/?special,sandwich,cheese",
+            "price": 160,
+            "special": true,
+            "cheesy": true
+        }
+    ],
+    "momos": [
+        {
+            "name": "Veg Momos",
+            "options": [
+                "Steamed",
+                "Fried",
+                "Cheesy",
+                "Schezwan"
+            ],
+            "icon": "momos-veg",
+            "image": "https://source.unsplash.com/featured/?momos,dumplings,vegetable",
+            "price": 120,
+            "popular": true
+        },
+        {
+            "name": "Paneer Momos",
+            "options": [
+                "Steamed",
+                "Fried",
+                "Cheesy",
+                "Schezwan"
+            ],
+            "icon": "momos-paneer",
+            "image": "https://source.unsplash.com/featured/?momos,paneer,dumplings",
+            "price": 150,
+            "cheesy": true
+        }
+    ],
+    "beverages": [
+        {
+            "name": "Hot Coffee",
+            "desc": "Freshly brewed",
+            "icon": "coffee-hot",
+            "image": "https://source.unsplash.com/featured/?hot,coffee,brew",
+            "price": 80
+        },
+        {
+            "name": "Cold Coffee",
+            "desc": "Chilled and creamy",
+            "icon": "coffee-cold",
+            "image": "https://source.unsplash.com/featured/?cold,coffee,iced",
+            "price": 90
+        },
+        {
+            "name": "Masala Chai",
+            "desc": "Traditional Indian tea",
+            "icon": "chai",
+            "image": "https://source.unsplash.com/featured/?masala,chai,tea",
+            "price": 60
+        }
+    ],
+    "desserts": [
+        {
+            "name": "Sizzling Brownie with Ice Cream",
+            "desc": "Hot brownie with cold ice cream",
+            "icon": "sizzling-brownie",
+            "image": "https://source.unsplash.com/featured/?brownie,ice-cream,hot",
+            "price": 180,
+            "hot": true,
+            "cold": true,
+            "popular": true
+        },
+        {
+            "name": "Royal Shahi Tukda",
+            "desc": "Rich Indian dessert",
+            "icon": "shahi-tukda",
+            "image": "https://source.unsplash.com/featured/?shahi,tukda,indian-dessert",
+            "price": 150,
+            "royal": true,
+            "rich": true
+        },
+        {
+            "name": "Dessert Noodles (Darshan Style)",
+            "desc": "Crispy sweet noodles",
+            "icon": "dessert-noodles",
+            "image": "https://source.unsplash.com/featured/?dessert,noodles,sweet",
+            "price": 140,
+            "crispy": true,
+            "sweet": true
+        },
+        {
+            "name": "Gulab Jamun with Ice Cream",
+            "desc": "Warm and cold combo",
+            "icon": "gulab-jamun",
+            "image": "https://source.unsplash.com/featured/?gulab,jamun,ice-cream",
+            "price": 160,
+            "warm": true,
+            "cold": true
+        }
+    ]
 }
-

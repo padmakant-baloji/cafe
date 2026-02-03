@@ -4,12 +4,11 @@ import { useEffect, useRef } from 'react'
 import { gsap, registerGSAP, ScrollTrigger } from '@/lib/gsap'
 import { motion } from 'framer-motion'
 import FoodIcon from '@/components/FoodIcon'
+import MenuImage from '@/components/MenuImage'
+import menuData from '@/data/menu.json'
+import { formatPrice, formatOptions } from '@/lib/menuUtils'
 
-const items = [
-  { name: 'Hot Coffee', desc: 'Freshly brewed', icon: 'coffee-hot' },
-  { name: 'Cold Coffee', desc: 'Chilled and creamy', icon: 'coffee-cold' },
-  { name: 'Masala Chai', desc: 'Traditional Indian tea', icon: 'chai' },
-]
+const items = menuData.beverages
 
 export default function BeveragesSection() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -92,13 +91,36 @@ export default function BeveragesSection() {
               whileTap={{ scale: 0.98 }}
               className="group bg-neutral-light rounded-2xl p-8 shadow-sm border border-neutral-gray/20 hover:border-blue hover:shadow-lg transition-all duration-300 cursor-pointer text-center"
             >
+              <MenuImage
+                src={item.image}
+                alt={item.name}
+                overlayIcon="☕"
+                className="mb-4"
+              />
               <div className="mb-4">
                 <FoodIcon type={item.icon} className="text-5xl group-hover:scale-125 transition-transform duration-300" />
               </div>
-              <h3 className="text-xl font-bold text-blue-dark mb-2 group-hover:text-blue transition-colors">
-                {item.name}
-              </h3>
-              <p className="text-sm text-blue-dark/70">{item.desc}</p>
+              <div className="flex items-center justify-between gap-2 mb-2">
+                <h3 className="text-xl font-bold text-blue-dark group-hover:text-blue transition-colors">
+                  {item.name}
+                </h3>
+                <span className="text-lg font-bold text-gold whitespace-nowrap">
+                  {formatPrice(item.price)}
+                </span>
+              </div>
+              {item.desc && <p className="text-sm text-blue-dark/70 mb-2">{item.desc}</p>}
+              {'options' in item && item.options && formatOptions(item.options).length > 0 && (
+                <div className="flex flex-wrap gap-1.5 justify-center">
+                  {formatOptions(item.options).map((opt, optIdx) => (
+                    <span key={optIdx} className="px-2 py-0.5 bg-blue-dark/10 text-blue-dark rounded-full text-xs font-medium">
+                      {opt.name}
+                      {opt.extra !== null && opt.extra !== undefined && (
+                        <span className="ml-1 text-gold">+₹{opt.extra}</span>
+                      )}
+                    </span>
+                  ))}
+                </div>
+              )}
             </motion.div>
           ))}
         </div>

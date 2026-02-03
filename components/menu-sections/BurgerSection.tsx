@@ -4,12 +4,11 @@ import { useEffect, useRef } from 'react'
 import { gsap, registerGSAP, ScrollTrigger } from '@/lib/gsap'
 import { motion } from 'framer-motion'
 import FoodIcon from '@/components/FoodIcon'
+import MenuImage from '@/components/MenuImage'
+import menuData from '@/data/menu.json'
+import { formatPrice, formatOptions } from '@/lib/menuUtils'
 
-const items = [
-  { name: 'Classic Veg Burger', desc: 'Crispy patty with fresh veggies', icon: 'burger-veg', classic: true },
-  { name: 'Paneer Crunch Burger', desc: 'Spiced paneer patty', icon: 'burger-paneer', crispy: true, spicy: true },
-  { name: 'Double Decker Burger', desc: 'Two patties, extra indulgent', icon: 'burger-double', double: true, popular: true },
-]
+const items = menuData.burgers
 
 export default function BurgerSection() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -98,14 +97,36 @@ export default function BurgerSection() {
               <div className="absolute inset-0 bg-gradient-to-b from-blue-dark/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               
               <div className="relative z-10">
+                <MenuImage
+                  src={item.image}
+                  alt={item.name}
+                  overlayIcon="🍔"
+                  className="mb-4"
+                />
                 <div className="flex items-center justify-center gap-4 mb-4">
                   <FoodIcon type={item.icon} className="text-6xl group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300" />
                 </div>
-                <h3 className="text-2xl font-bold text-blue-dark text-center mb-2 group-hover:text-blue transition-colors">
-                  {item.name}
-                </h3>
-                <p className="text-base text-blue-dark/70 text-center mb-4">{item.desc}</p>
-                
+                <div className="flex items-center justify-between gap-2 mb-2">
+                  <h3 className="text-2xl font-bold text-blue-dark group-hover:text-blue transition-colors flex-1 text-center">
+                    {item.name}
+                  </h3>
+                  <span className="text-xl font-bold text-gold whitespace-nowrap">
+                    {formatPrice(item.price)}
+                  </span>
+                </div>
+                {item.desc && <p className="text-base text-blue-dark/70 text-center mb-2">{item.desc}</p>}
+                {('options' in item && item.options && formatOptions(item.options).length > 0) ? (
+                  <div className="flex flex-wrap gap-1.5 mb-3 justify-center">
+                    {formatOptions(item.options).map((opt, optIdx) => (
+                      <span key={optIdx} className="px-2 py-0.5 bg-blue-dark/10 text-blue-dark rounded-full text-xs font-medium">
+                        {opt.name}
+                        {opt.extra !== null && opt.extra !== undefined && (
+                          <span className="ml-1 text-gold">+₹{opt.extra}</span>
+                        )}
+                      </span>
+                    ))}
+                  </div>
+                ) : null}
                 <div className="flex justify-center gap-2 flex-wrap">
                   {item.classic && <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold">Classic</span>}
                   {item.crispy && <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm font-semibold">Crispy</span>}

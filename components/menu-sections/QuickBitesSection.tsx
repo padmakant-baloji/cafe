@@ -4,30 +4,11 @@ import { useEffect, useRef } from 'react'
 import { gsap, registerGSAP, ScrollTrigger } from '@/lib/gsap'
 import { motion } from 'framer-motion'
 import FoodIcon from '@/components/FoodIcon'
+import MenuImage from '@/components/MenuImage'
+import menuData from '@/data/menu.json'
+import { formatPrice, formatOptions } from '@/lib/menuUtils'
 
-const items = [
-  // Gobi Items
-  { name: 'Gobi 65', desc: 'Spicy crispy gobi with bold flavors', icon: 'gobi-manchurian', spicy: true, popular: true },
-  { name: 'Gobi Chilly', desc: 'Tangy and spicy gobi in chilli sauce', icon: 'gobi-manchurian', spicy: true },
-  { name: 'Gobi Manchurian', desc: 'Classic Indo-Chinese gobi', icon: 'gobi-manchurian', popular: true },
-  { name: 'Gobi Salt & Pepper', desc: 'Crispy gobi with salt and pepper', icon: 'gobi-manchurian', crispy: true },
-  
-  // Paneer Items
-  { name: 'Paneer 65', desc: 'Spicy crispy paneer with bold flavors', icon: 'paneer-bites', spicy: true, popular: true },
-  { name: 'Paneer Chilly', desc: 'Tangy and spicy paneer in chilli sauce', icon: 'paneer-bites', spicy: true },
-  { name: 'Paneer Manchurian', desc: 'Classic Indo-Chinese paneer', icon: 'paneer-bites', popular: true },
-  { name: 'Paneer Salt & Pepper', desc: 'Crispy paneer with salt and pepper', icon: 'paneer-bites', crispy: true },
-  
-  // Other Items
-  { name: 'Veggie Manchurian Pops', desc: 'Indo-Chinese favorite', icon: 'manchurian-pops', popular: true },
-  { name: 'Corn Crunch Basket', desc: 'Fried golden corn', icon: 'corn-crunch', crispy: true },
-  { name: 'American Butter Corn', desc: 'Butter tossed sweet corn', icon: 'butter-corn', buttery: true },
-  { name: 'Cheesy Corn Balls', desc: 'Crunchy outside, gooey inside', icon: 'corn-balls', cheesy: true },
-  { name: 'French Fries Trio', options: ['Salted', 'Masala', 'Peri-Peri'], icon: 'fries', trio: true },
-  { name: 'Spiced Potato Wedges', desc: 'Crispy seasoned wedges', icon: 'potato-wedges', spicy: true },
-  { name: 'Smiley Fries', desc: 'Fun crispy potato snacks', icon: 'smiley-fries', fun: true },
-  { name: 'Veg Nuggets', desc: 'Golden fried veggie nuggets', icon: 'nuggets', crispy: true },
-]
+const items = menuData.quickBites
 
 export default function QuickBitesSection() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -101,40 +82,60 @@ export default function QuickBitesSection() {
           🍟 Quick Bites
         </h2>
 
-        <div ref={itemsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div ref={itemsRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {items.map((item, index) => (
             <motion.div
               key={index}
               whileHover={{ scale: 1.08, rotate: 1, y: -8 }}
               whileTap={{ scale: 0.95 }}
-              className="group bg-gradient-to-br from-gold/20 to-gold-light/10 rounded-xl p-5 shadow-lg border-2 border-gold/30 hover:border-gold hover:shadow-2xl transition-all duration-300 cursor-pointer relative overflow-hidden"
+              className="group bg-gradient-to-br from-gold/20 to-gold-light/10 rounded-2xl p-4 md:p-5 shadow-lg border-2 border-gold/30 hover:border-gold hover:shadow-2xl transition-all duration-300 cursor-pointer relative overflow-hidden flex flex-col"
             >
               {/* Shine effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
               
-              <div className="relative z-10">
+              <div className="relative z-10 flex flex-col h-full">
+                <MenuImage
+                  src={item.image}
+                  alt={item.name}
+                  overlayIcon="🍟"
+                  className="mb-3"
+                />
+
                 <div className="flex items-center gap-3 mb-2">
-                  <FoodIcon type={item.icon} className="text-3xl group-hover:scale-125 transition-transform duration-300" />
-                  <h3 className="text-base font-bold text-blue-dark group-hover:text-gold transition-colors flex-1">
-                    {item.name}
-                  </h3>
-                  {item.popular && (
-                    <span className="px-2 py-0.5 bg-red-500 text-white rounded-full text-xs font-bold animate-pulse">
-                      HOT
-                    </span>
-                  )}
+                  <FoodIcon type={item.icon} className="text-2xl md:text-3xl group-hover:scale-125 transition-transform duration-300" />
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between gap-2">
+                      <h3 className="text-sm md:text-base font-bold text-blue-dark group-hover:text-gold transition-colors">
+                        {item.name}
+                      </h3>
+                      {item.popular && (
+                        <span className="px-2 py-0.5 bg-red-500 text-white rounded-full text-xs font-bold animate-pulse">
+                          HOT
+                        </span>
+                      )}
+                    </div>
+                    <div className="flex items-center justify-between mt-1">
+                      {item.desc && (
+                        <p className="text-xs text-blue-dark/70">{item.desc}</p>
+                      )}
+                      <span className="text-sm md:text-base font-bold text-gold whitespace-nowrap ml-2">
+                        {formatPrice(item.price)}
+                      </span>
+                    </div>
+                  </div>
                 </div>
                 
-                {item.options ? (
+                {'options' in item && item.options && formatOptions(item.options as any).length > 0 && (
                   <div className="flex flex-wrap gap-1.5 mt-2">
-                    {item.options.map((opt, i) => (
+                    {formatOptions(item.options as any).map((opt, i) => (
                       <span key={i} className="px-2 py-0.5 bg-white/60 rounded-full text-xs text-blue-dark font-medium">
-                        {opt}
+                        {opt.name}
+                        {opt.extra !== null && opt.extra !== undefined && (
+                          <span className="ml-1 text-gold">+₹{opt.extra}</span>
+                        )}
                       </span>
                     ))}
                   </div>
-                ) : (
-                  <p className="text-sm text-blue-dark/70 mt-1">{item.desc}</p>
                 )}
                 
                 {/* Badges */}
