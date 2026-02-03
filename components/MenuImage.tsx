@@ -14,14 +14,17 @@ export default function MenuImage({ src, alt, className = '', overlayIcon }: Men
   const [shouldLoad, setShouldLoad] = useState(false)
   const imgRef = useRef<HTMLImageElement>(null)
 
+  // For local images, always load immediately (important for static export)
+  // For external images, use lazy loading with Intersection Observer
+  const isLocalImage = src && src.startsWith('/')
+
   useEffect(() => {
     // Reset error state when src changes
     setHasError(false)
     
-    // For local images (starting with /), load immediately
-    // For external images, use lazy loading
-    if (src && src.startsWith('/')) {
-      setShouldLoad(true)
+    // For local images, we render them directly, no need to set state
+    // For external images, use lazy loading with Intersection Observer
+    if (isLocalImage) {
       return
     }
 
@@ -48,7 +51,7 @@ export default function MenuImage({ src, alt, className = '', overlayIcon }: Men
     return () => {
       observer.disconnect()
     }
-  }, [src])
+  }, [src, isLocalImage])
 
   // Ensure src is valid
   if (!src) {
@@ -68,11 +71,26 @@ export default function MenuImage({ src, alt, className = '', overlayIcon }: Men
       ref={imgRef}
       className={`relative w-full overflow-hidden rounded-2xl bg-gradient-to-br from-blue-dark/80 via-blue-dark/60 to-gold/60 aspect-[4/3] ${className}`}
     >
-      {shouldLoad && !hasError && (
+      {/* Always render local images directly for static export compatibility */}
+      {isLocalImage && !hasError && (
         <img
           src={src}
           alt={alt}
-          loading={src.startsWith('/') ? 'eager' : 'lazy'}
+          loading="eager"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          onError={() => {
+            setHasError(true)
+          }}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        />
+      )}
+      {/* Lazy load external images */}
+      {!isLocalImage && shouldLoad && !hasError && (
+        <img
+          src={src}
+          alt={alt}
+          loading="lazy"
           decoding="async"
           className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
           onError={() => {
