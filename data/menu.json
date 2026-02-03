@@ -464,7 +464,7 @@
             "image": "https://source.unsplash.com/featured/?grilled,sandwich,vegetable",
             "price": {
                 "half": null,
-                "full": 120
+                "full": 100
             },
             "grilled": true
         },
@@ -473,7 +473,10 @@
             "desc": "Smoky paneer filling",
             "icon": "sandwich-paneer",
             "image": "https://source.unsplash.com/featured/?paneer,tikka,sandwich",
-            "price": 150,
+            "price": {
+                "half": null,
+                "full": 120
+            },
             "smoky": true
         },
         {
@@ -481,7 +484,10 @@
             "desc": "Simple and tasty",
             "icon": "sandwich-veg",
             "image": "https://source.unsplash.com/featured/?vegetable,sandwich",
-            "price": 100,
+            "price": {
+                "half": null,
+                "full": 80
+            },
             "classic": true
         },
         {
@@ -489,7 +495,10 @@
             "desc": "Street-style layered sandwich",
             "icon": "sandwich-bombay",
             "image": "https://source.unsplash.com/featured/?bombay,masala,sandwich",
-            "price": 130,
+            "price": {
+                "half": null,
+                "full": 120
+            },
             "spicy": true
         },
         {
@@ -497,7 +506,10 @@
             "desc": "Loaded and cheesy",
             "icon": "sandwich-special",
             "image": "https://source.unsplash.com/featured/?special,sandwich,cheese",
-            "price": 160,
+            "price": {
+                "half": null,
+                "full": 130
+            },
             "special": true,
             "cheesy": true
         }
@@ -506,10 +518,11 @@
         {
             "name": "Veg Momos",
             "options": [
-                "Steamed",
-                "Fried",
-                "Cheesy",
-                "Schezwan"
+                {"Steamed":99},
+                {"Fried":110},
+                {"Schezwan":120},
+                {"Cheesy":130}
+
             ],
             "icon": "momos-veg",
             "image": "https://source.unsplash.com/featured/?momos,dumplings,vegetable",
@@ -519,10 +532,10 @@
         {
             "name": "Paneer Momos",
             "options": [
-                "Steamed",
-                "Fried",
-                "Cheesy",
-                "Schezwan"
+                {"Steamed":120},
+                {"Fried":130},
+                {"Schezwan":140},
+                {"Cheesy":150}
             ],
             "icon": "momos-paneer",
             "image": "https://source.unsplash.com/featured/?momos,paneer,dumplings",

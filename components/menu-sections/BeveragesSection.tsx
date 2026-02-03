@@ -109,7 +109,7 @@ export default function BeveragesSection() {
                 </span>
               </div>
               {item.desc && <p className="text-sm text-blue-dark/70 mb-2">{item.desc}</p>}
-              {'options' in item && item.options && formatOptions(item.options).length > 0 && (
+              {('options' in item && item.options && formatOptions(item.options).length > 0) ? (
                 <div className="flex flex-wrap gap-1.5 justify-center">
                   {formatOptions(item.options).map((opt, optIdx) => (
                     <span key={optIdx} className="px-2 py-0.5 bg-blue-dark/10 text-blue-dark rounded-full text-xs font-medium">
@@ -120,7 +120,7 @@ export default function BeveragesSection() {
                     </span>
                   ))}
                 </div>
-              )}
+              ) : null}
             </motion.div>
           ))}
         </div>
